@@ -1,2 +1,2 @@
 # mechonteca
-repositori pagina web
+repositorio pagina web
