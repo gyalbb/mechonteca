@@ -1,0 +1,15 @@
+/* Estilo del Boceto USM */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f7; /* Color de fondo ligero */
+    color: #333;
+    padding: 20px;
+}
+
+.header-usm {
+    background-color: #0056b3; /* Azul USM */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+}

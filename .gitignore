@@ -1,0 +1,12 @@
+# Entorno virtual de Python
+/venv/
+
+# Archivos de la base de datos
+db.sqlite3
+
+# Archivos de Python generados
+*.pyc
+__pycache__/
+
+# Archivos de subida de media (archivos de los usuarios)
+/media/

@@ -1,0 +1,136 @@
+{% extends 'pagina/base.html' %} 
+{% block title %}Dashboard - USM{% endblock %}
+
+{% block content %}
+    <!-- Contenido de la SECCIÓN 2: DASHBOARD del boceto -->
+    <section id="dashboard">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Tu Ruta de Nivelación</h1>
+
+        <!-- MENSAJE DE BIENVENIDA DINÁMICO (Requiere JS) -->
+        <div id="welcome-message" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-lg shadow-md mb-6">
+            <p class="font-semibold text-lg">Cargando mensaje de bienvenida...</p>
+        </div>
+        <!-- FIN MENSAJE DE BIENVENIDA DINÁMICO -->
+
+        <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+            <h2 class="text-xl font-semibold mb-2">Progreso General: 40%</h2>
+            <div class="w-full md:w-full bg-gray-200 rounded-full h-4">
+                <div class="progress-bar-bg h-4 rounded-full" style="width: 40%"></div>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">¡Sigue así! Te quedan 3 cursos por completar.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Curso Cálculo I -->
+            <div class="course-card bg-white p-6 rounded-xl shadow-md border-l-8 border-blue-600">
+                <h3 class="text-2xl font-bold mb-3 text-gray-800">Cálculo I</h3>
+                <p class="text-sm text-gray-500 mb-4">Análisis del tema, límites y derivadas esenciales.</p>
+                
+                <div id="calculo-topicos" class="space-y-2 text-sm hidden">
+                    <div class="flex justify-between items-center py-1">
+                        <span>✅ Tópico 1: Límites</span>
+                        <span class="text-green-600 font-semibold">100%</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1">
+                        <span>🟡 Tópico 2: Derivadas</span>
+                        <span class="text-yellow-600 font-semibold">60%</span>
+                    </div>
+                    <div class="flex justify-between items-center py-1">
+                        <span>⚪ Tópico 3: Integrales</span>
+                        <span class="text-gray-400 font-semibold">0%</span>
+                    </div>
+                </div>
+                <button class="toggle-topicos w-full mt-4 bg-blue-100 text-blue-700 text-sm px-4 py-2 rounded-lg" data-target="calculo-topicos">
+                    Ver Tópicos
+                </button>
+                <button class="w-full mt-2 btn-usm-primary text-sm px-4 py-2 rounded-lg">
+                    Continuar con Derivadas
+                </button>
+            </div>
+
+            <!-- Curso Álgebra -->
+            <div class="course-card bg-white p-6 rounded-xl shadow-md border-l-8 border-gray-400 opacity-70">
+                <h3 class="text-2xl font-bold mb-3 text-gray-500">Álgebra</h3>
+                <p class="text-sm text-gray-400 mb-4">Vectores, matrices y sistemas de ecuaciones.</p>
+                <div id="algebra-topicos" class="space-y-2 text-sm hidden">
+                    <p class="text-center text-gray-400">Aún no hay progreso.</p>
+                </div>
+                <button class="toggle-topicos w-full mt-4 bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-lg" data-target="algebra-topicos">
+                    Ver Tópicos
+                </button>
+                <button class="w-full mt-2 bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-lg" disabled>
+                    Comenzar
+                </button>
+            </div>
+
+            <!-- Curso Física -->
+            <div class="course-card bg-white p-6 rounded-xl shadow-md border-l-8 border-gray-400 opacity-70">
+                <h3 class="text-2xl font-bold mb-3 text-gray-500">Física</h3>
+                <p class="text-sm text-gray-400 mb-4">Mecánica clásica y termodinámica básica.</p>
+                <div id="fisica-topicos" class="space-y-2 text-sm hidden">
+                    <p class="text-center text-gray-400">Aún no hay progreso.</p>
+                </div>
+                <button class="toggle-topicos w-full mt-4 bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-lg" data-target="fisica-topicos">
+                    Ver Tópicos
+                </button>
+                <button class="w-full mt-2 bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-lg" disabled>
+                    Comenzar
+                </button>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // JS para la lógica del Dashboard (mensajes de bienvenida y toggles)
+    const welcomeMessages = [
+        "¡Hola, Sansano! Tu ruta de nivelación te espera. ¡A darle con todo!",
+        "El conocimiento es poder. Mira tu progreso y planifica tu próxima meta.",
+        "Recuerda revisar el Almacén Colaborativo para nuevos apuntes y certámenes.",
+        "¡Vamos por ese 100%! Tienes 3 cursos pendientes para alcanzar la meta.",
+        "Tu esfuerzo de hoy es tu éxito de mañana. ¡Sigue avanzando!",
+    ];
+
+    function getWelcomeMessage() {
+        const index = Math.floor(Math.random() * welcomeMessages.length);
+        return welcomeMessages[index];
+    }
+
+    function updateWelcomeMessage() {
+        const messageElement = document.getElementById('welcome-message');
+        if (messageElement) {
+            messageElement.querySelector('p').textContent = getWelcomeMessage();
+        }
+    }
+
+    // Toggle para mostrar/ocultar tópicos en las tarjetas de curso
+    document.querySelectorAll('.toggle-topicos').forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const targetElement = document.getElementById(targetId);
+            const isHidden = targetElement.classList.contains('hidden');
+            
+            // Cierra otros tópicos y restablece botones
+            document.querySelectorAll('.toggle-topicos').forEach(btn => {
+                const id = btn.getAttribute('data-target');
+                document.getElementById(id).classList.add('hidden');
+                btn.textContent = 'Ver Tópicos';
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-blue-100', 'text-blue-700');
+            });
+
+            // Abre el tópico clickeado
+            if (isHidden) {
+                targetElement.classList.remove('hidden');
+                this.textContent = 'Ocultar Tópicos';
+                this.classList.remove('bg-blue-100', 'text-blue-700');
+                this.classList.add('bg-blue-600', 'text-white');
+            }
+        });
+    });
+
+    // Inicialización del mensaje de bienvenida
+    window.onload = updateWelcomeMessage;
+</script>
+{% endblock %}
