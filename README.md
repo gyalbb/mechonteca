@@ -1,2 +1,0 @@
-# mechonteca
-repositorio pagina web
