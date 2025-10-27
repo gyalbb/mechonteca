@@ -10,4 +10,6 @@ urlpatterns = [
     path('registro/', views.vista_registro, name='registro'), 
     # Programas (por ahora usa la misma vista de inicio)
     path('programas/', views.vista_inicio, name='programas'), 
+    #ejemplo de latex en html
+    path('ejemplo/', views.vista_ejemplo, name="ejemplo")
 ]
