@@ -30,4 +30,6 @@ urlpatterns = [
     path('api/', include('aplicaciones.api.urls')),
     # Rutas de autenticación (login, logout, password reset, ...)
     path('accounts/', include('django.contrib.auth.urls')),
+
+    path('ejemplo/', include('aplicaciones.ejemplo.urls')),
 ]
