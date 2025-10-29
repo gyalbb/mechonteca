@@ -123,11 +123,10 @@
         </div>
     </footer>
 
-    {% block extra_js %}
-    <!-- Archivos JS adicionales o lógica general se cargarán aquí -->
+    <!-- Core JavaScript that should always be present -->
     <script>
         // Toggle del menú de perfil y cierre al hacer click fuera
-        (function(){
+        document.addEventListener('DOMContentLoaded', function() {
             const btn = document.getElementById('profile-btn');
             const menu = document.getElementById('profile-menu');
             if (!btn || !menu) return;
@@ -144,13 +143,21 @@
             btn.addEventListener('click', toggle);
 
             // Cerrar al hacer click en cualquier lugar fuera
-            document.addEventListener('click', function(){
-                if (!menu.classList.contains('hidden')) {
+            document.addEventListener('click', function(e){
+                if (!menu.classList.contains('hidden') && !menu.contains(e.target) && e.target !== btn) {
                     menu.classList.add('hidden');
                 }
             });
-        })();
+
+            // Prevenir que clicks dentro del menú lo cierren
+            menu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
     </script>
+
+    {% block extra_js %}
+    <!-- Archivos JS adicionales o lógica específica de cada página irán aquí -->
     {% endblock %}
 
 </body>
