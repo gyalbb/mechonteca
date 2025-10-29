@@ -3,6 +3,14 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework import status
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from aplicaciones.pagina.models import Progress
+import json
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -24,3 +32,6 @@ class RegisterView(generics.CreateAPIView):
             status=status.HTTP_201_CREATED,  # fixed
             headers=headers
         )
+
+
+
