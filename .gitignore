@@ -1,5 +1,6 @@
 # Entorno virtual de Python
 /venv/
+.venv/
 
 # Archivos de la base de datos
 db.sqlite3
@@ -8,5 +9,14 @@ db.sqlite3
 *.pyc
 __pycache__/
 
+# Entornos y variables de entorno
+.env
+
+# Sistema
+.DS_Store
+
 # Archivos de subida de media (archivos de los usuarios)
 /media/
+
+# Dependencias / artefactos
+requirements.txt

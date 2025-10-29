@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Estudiantes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Autoevaluación — Cálculo I</h1>
+        <p>
+            Completa este formulario tú (estudiante). Describe brevemente tu desempeño en temas de Cálculo I.
+            De momento esta herramienta solo acepta respuestas relacionadas con Cálculo I (ej.: proposiciones, inecuaciones, límites, derivadas, integrales y temas afines de nivel universitario).
+            Entre otros temas de ese nivel, asegúrate de explicar tu comprensión, cómo resuelves problemas y si puedes explicar los pasos.
+        </p>
+        <div class="info-box">
+            <strong>Niveles (explicación):</strong>
+            <ul>
+                <li><strong>Básico</strong>: Tiene dificultades con conceptos fundamentales; requiere guía frecuente.</li>
+                <li><strong>Intermedio</strong>: Resuelve ejercicios estándar correctamente y explica los pasos con cierta claridad.</li>
+                <li><strong>Avanzado</strong>: Demuestra dominio profundo; aplica conceptos a problemas nuevos, explica con detalle y propone soluciones originales.</li>
+            </ul>
+        </div>
+
+        <form id="evaluacionForm" onsubmit="evaluarEstudiante(event)">
+            <div class="form-group">
+                <label for="nombre">Nombre del Estudiante:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="respuestas">Evaluación del Estudiante:</label>
+                <textarea id="respuestas" name="respuestas" rows="6" required
+                    placeholder="Describe el desempeño del estudiante. Por ejemplo:
+• Básico: 'El estudiante muestra dificultades con conceptos básicos y necesita ayuda constante.'
+• Intermedio: 'El alumno puede resolver ejercicios intermedios y explicar sus pasos.'
+• Avanzado: 'El estudiante demuestra dominio excepcional, aplica conceptos avanzados y puede enseñar a otros. Desarrolla soluciones innovadoras.'"></textarea>
+                <small class="form-text">
+                    Tip: Para una mejor evaluación, describe:
+                    1. Nivel de comprensión de conceptos
+                    2. Capacidad para resolver problemas
+                    3. Habilidad para explicar y aplicar conocimientos
+                    4. Independencia y creatividad en el aprendizaje — especifica:
+                    <ul>
+                        <li>Si estudias por tu cuenta y con qué frecuencia</li>
+                        <li>Si buscas recursos adicionales (videos, libros, foros)</li>
+                        <li>Si planificas tu estudio y resuelves ejercicios nuevos</li>
+                        <li>Si dependes de ayuda (profesor, IA, compañeros) para resolver problemas</li>
+                    </ul>
+                </small>
+            </div>
+            
+            <button type="submit" class="btn-evaluar">Evaluar</button>
+        </form>
+
+        <div id="resultado" class="resultado" style="display: none;">
+            <h2>Resultados de la Evaluación</h2>
+            <div id="nivel"></div>
+            <div id="recomendaciones"></div>
+        </div>
+    </div>
+
+    <script>
+        async function evaluarEstudiante(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('evaluacionForm');
+            const resultadoDiv = document.getElementById('resultado');
+            const nivelDiv = document.getElementById('nivel');
+            const recomendacionesDiv = document.getElementById('recomendaciones');
+            
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('/evaluar', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultadoDiv.style.display = 'block';
+                    nivelDiv.innerHTML = `<strong>Nivel:</strong> ${data.nivel} ${data.confianza ? '- Confianza: ' + data.confianza : ''}`;
+                    let detalles = '';
+                    if (data.detalle_items) {
+                        detalles += '<h3>Desglose por ítems</h3>';
+                        detalles += '<ul>';
+                        for (const k in data.detalle_items) {
+                            const it = data.detalle_items[k];
+                            detalles += `<li><strong>${k}:</strong> ${it.text} (<em>${it.score}</em>)</li>`;
+                        }
+                        detalles += '</ul>';
+                    }
+                    recomendacionesDiv.innerHTML = `<strong>Recomendaciones:</strong> ${data.recomendaciones || ''}` + detalles;
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error al procesar la evaluación');
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

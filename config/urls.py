@@ -16,12 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Logout accesible vía GET y redirige a la raíz — útil para enlaces globales
+    path('logout/', LogoutView.as_view(next_page='/', template_name='registration/logged_out.html'), name='logout'),
     # Ruta principal (la raíz '/') es gestionada por la aplicación 'pagina'
     path('', include('aplicaciones.pagina.urls')), 
     
     # La ruta '/almacen/' es gestionada por la app almacen
     path('almacen/', include('aplicaciones.almacen.urls')),
+    path('api/', include('aplicaciones.api.urls')),
+    # Rutas de autenticación (login, logout, password reset, ...)
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

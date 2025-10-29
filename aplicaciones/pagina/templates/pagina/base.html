@@ -84,10 +84,28 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1.51-1V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09z"/></svg>
                 </button>
 
-                <!-- Foto de Perfil / Círculo de Usuario -->
-                <button title="Mi Perfil" class="w-10 h-10 bg-yellow-400 rounded-full text-blue-900 font-bold flex items-center justify-center border-2 border-white transition duration-150 hover:shadow-lg hover:ring-2 ring-white">
-                    JP
-                </button>
+                <!-- Foto de Perfil / Círculo de Usuario (mantener diseño) -->
+                <div class="relative">
+                    <button id="profile-btn" title="Mi Perfil" class="w-10 h-10 bg-yellow-400 rounded-full text-blue-900 font-bold flex items-center justify-center border-2 border-white transition duration-150 hover:shadow-lg hover:ring-2 ring-white">
+                        JP
+                    </button>
+
+                    <!-- Menú desplegable anclado al botón de perfil -->
+                    <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded shadow-lg text-gray-800 z-50">
+                        {% if user.is_authenticated %}
+                        <div class="px-4 py-2 border-b text-sm">Hola, <strong>{{ user.username }}</strong></div>
+                        <a href="{% url 'pagina:ajustes' %}" class="block px-4 py-2 hover:bg-gray-100">Ajustes</a>
+                        <!-- Logout: ahora usamos la ruta global /logout/ (definida en config.urls) -->
+                        <form method="post" action="{% url 'logout' %}" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-100">Cerrar sesión</button>
+                        </form>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="block px-4 py-2 hover:bg-gray-100">Iniciar sesión</a>
+                        <a href="{% url 'pagina:signup' %}" class="block px-4 py-2 hover:bg-gray-100">Registrarse</a>
+                        {% endif %}
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -105,8 +123,41 @@
         </div>
     </footer>
 
+    <!-- Core JavaScript that should always be present -->
+    <script>
+        // Toggle del menú de perfil y cierre al hacer click fuera
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('profile-btn');
+            const menu = document.getElementById('profile-menu');
+            if (!btn || !menu) return;
+
+            const toggle = function(e){
+                e.stopPropagation();
+                if (menu.classList.contains('hidden')) {
+                    menu.classList.remove('hidden');
+                } else {
+                    menu.classList.add('hidden');
+                }
+            };
+
+            btn.addEventListener('click', toggle);
+
+            // Cerrar al hacer click en cualquier lugar fuera
+            document.addEventListener('click', function(e){
+                if (!menu.classList.contains('hidden') && !menu.contains(e.target) && e.target !== btn) {
+                    menu.classList.add('hidden');
+                }
+            });
+
+            // Prevenir que clicks dentro del menú lo cierren
+            menu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+
     {% block extra_js %}
-    <!-- Archivos JS adicionales o lógica general se cargarán aquí -->
+    <!-- Archivos JS adicionales o lógica específica de cada página irán aquí -->
     {% endblock %}
 
 </body>

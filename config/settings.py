@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'aplicaciones.pagina.apps.PaginaConfig', 
     'aplicaciones.almacen.apps.AlmacenConfig',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'aplicaciones.api',
 ]
 
 MIDDLEWARE = [
@@ -60,9 +64,10 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+            'django.template.context_processors.request',
+            'django.template.context_processors.csrf',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
             ],
         },
     },
@@ -128,3 +133,16 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# URL a la que se redirige después de hacer login exitoso
+LOGIN_REDIRECT_URL = '/'
+# Nombre de la URL de login (se usa con reverse/name)
+LOGIN_URL = 'login'
+# Después de cerrar sesión, redirigir a la página principal
+LOGOUT_REDIRECT_URL = '/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
