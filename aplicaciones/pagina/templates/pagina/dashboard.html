@@ -4,6 +4,17 @@
 {% block content %}
     <!-- Contenido de la SECCIÓN 2: DASHBOARD del boceto -->
     <section id="dashboard">
+        {% if migration_error %}
+        <div class="mb-6 p-4 bg-red-100 border-l-4 border-red-500 text-red-800 rounded">
+            <strong>Error:</strong> No se encontró la tabla de progreso. Por favor ejecuta las migraciones.
+            <div class="mt-2 text-sm text-gray-700">
+                Abre una terminal y ejecuta:
+                <pre class="bg-gray-100 p-2 rounded mt-1">python manage.py makemigrations aplicaciones.pagina
+python manage.py migrate</pre>
+                Luego actualiza esta página.
+            </div>
+        </div>
+        {% endif %}
         <h1 class="text-3xl font-bold text-gray-800 mb-4">Tu Ruta de Nivelación</h1>
 
         <!-- MENSAJE DE BIENVENIDA DINÁMICO (Requiere JS) -->
@@ -13,70 +24,39 @@
         <!-- FIN MENSAJE DE BIENVENIDA DINÁMICO -->
 
         <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
-            <h2 class="text-xl font-semibold mb-2">Progreso General: 40%</h2>
+            <h2 class="text-xl font-semibold mb-2">Progreso General: {{ overall_percent }}%</h2>
             <div class="w-full md:w-full bg-gray-200 rounded-full h-4">
-                <div class="progress-bar-bg h-4 rounded-full" style="width: 40%"></div>
+                <div class="progress-bar-bg h-4 rounded-full" style="width: {{ overall_percent }}%"></div>
             </div>
-            <p class="text-sm text-gray-500 mt-2">¡Sigue así! Te quedan 3 cursos por completar.</p>
+            <p class="text-sm text-gray-500 mt-2">{% if overall_percent < 100 %}¡Sigue así!{% else %}¡Has completado la ruta!{% endif %}</p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Curso Cálculo I -->
-            <div class="course-card bg-white p-6 rounded-xl shadow-md border-l-8 border-blue-600">
-                <h3 class="text-2xl font-bold mb-3 text-gray-800">Cálculo I</h3>
-                <p class="text-sm text-gray-500 mb-4">Análisis del tema, límites y derivadas esenciales.</p>
-                
-                <div id="calculo-topicos" class="space-y-2 text-sm hidden">
-                    <div class="flex justify-between items-center py-1">
-                        <span>✅ Tópico 1: Límites</span>
-                        <span class="text-green-600 font-semibold">100%</span>
-                    </div>
-                    <div class="flex justify-between items-center py-1">
-                        <span>🟡 Tópico 2: Derivadas</span>
-                        <span class="text-yellow-600 font-semibold">60%</span>
-                    </div>
-                    <div class="flex justify-between items-center py-1">
-                        <span>⚪ Tópico 3: Integrales</span>
-                        <span class="text-gray-400 font-semibold">0%</span>
-                    </div>
-                </div>
-                <button class="toggle-topicos w-full mt-4 bg-blue-100 text-blue-700 text-sm px-4 py-2 rounded-lg" data-target="calculo-topicos">
-                    Ver Tópicos
-                </button>
-                <button class="w-full mt-2 btn-usm-primary text-sm px-4 py-2 rounded-lg">
-                    Continuar con Derivadas
-                </button>
-            </div>
+            {% for course in courses %}
+            <div class="course-card bg-white p-6 rounded-xl shadow-md {% if course.percent >= 100 %}border-l-8 border-green-600{% elif course.percent > 0 %}border-l-8 border-blue-600{% else %}border-l-8 border-gray-400 opacity-70{% endif %}">
+                <h3 class="text-2xl font-bold mb-3 {% if course.percent == 0 %}text-gray-500{% else %}text-gray-800{% endif %}">{{ course.name }}</h3>
+                    <p class="text-sm {% if course.percent == 0 %}text-gray-400{% else %}text-gray-500{% endif %} mb-4">{% if course.name == 'Cálculo I' %}Análisis del tema, límites y derivadas esenciales.{% elif course.name == 'Álgebra' %}Vectores, matrices y sistemas de ecuaciones.{% elif course.name == 'Física' %}Mecánica clásica y termodinámica básica.{% endif %}</p>
 
-            <!-- Curso Álgebra -->
-            <div class="course-card bg-white p-6 rounded-xl shadow-md border-l-8 border-gray-400 opacity-70">
-                <h3 class="text-2xl font-bold mb-3 text-gray-500">Álgebra</h3>
-                <p class="text-sm text-gray-400 mb-4">Vectores, matrices y sistemas de ecuaciones.</p>
-                <div id="algebra-topicos" class="space-y-2 text-sm hidden">
-                    <p class="text-center text-gray-400">Aún no hay progreso.</p>
+                <div id="{{ course.name|slugify }}-topicos" class="space-y-2 text-sm hidden">
+                    {% if course.topics %}
+                        {% for tname, tpercent in course.topics.items %}
+                        <div class="flex justify-between items-center py-1">
+                            <span>{{ tname }}</span>
+                            <span class="font-semibold {% if tpercent >= 100 %}text-green-600{% elif tpercent > 0 %}text-yellow-600{% else %}text-gray-400{% endif %}">{{ tpercent }}%</span>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center text-gray-400">Aún no hay progreso.</p>
+                    {% endif %}
                 </div>
-                <button class="toggle-topicos w-full mt-4 bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-lg" data-target="algebra-topicos">
+                <button class="toggle-topicos w-full mt-4 {% if course.percent > 0 %}bg-blue-100 text-blue-700{% else %}bg-gray-200 text-gray-700{% endif %} text-sm px-4 py-2 rounded-lg" data-target="{{ course.name|slugify }}-topicos">
                     Ver Tópicos
                 </button>
-                <button class="w-full mt-2 bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-lg" disabled>
-                    Comenzar
+                <button class="w-full mt-2 {% if course.percent > 0 %}btn-usm-primary text-sm{% else %}bg-gray-200 text-gray-700 text-sm{% endif %} px-4 py-2 rounded-lg" {% if course.percent == 0 %}disabled{% endif %}>
+                    {% if course.percent > 0 %}Continuar{% else %}Comenzar{% endif %}
                 </button>
             </div>
-
-            <!-- Curso Física -->
-            <div class="course-card bg-white p-6 rounded-xl shadow-md border-l-8 border-gray-400 opacity-70">
-                <h3 class="text-2xl font-bold mb-3 text-gray-500">Física</h3>
-                <p class="text-sm text-gray-400 mb-4">Mecánica clásica y termodinámica básica.</p>
-                <div id="fisica-topicos" class="space-y-2 text-sm hidden">
-                    <p class="text-center text-gray-400">Aún no hay progreso.</p>
-                </div>
-                <button class="toggle-topicos w-full mt-4 bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-lg" data-target="fisica-topicos">
-                    Ver Tópicos
-                </button>
-                <button class="w-full mt-2 bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-lg" disabled>
-                    Comenzar
-                </button>
-            </div>
+            {% endfor %}
         </div>
     </section>
 {% endblock %}
