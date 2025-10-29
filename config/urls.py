@@ -24,4 +24,5 @@ urlpatterns = [
     
     # La ruta '/almacen/' es gestionada por la app almacen
     path('almacen/', include('aplicaciones.almacen.urls')),
+    path('api/', include('aplicaciones.api.urls')),
 ]
