@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-def ejemplo(request):
+def ejercicios(request):
 
     formulas = [
             {
@@ -82,4 +82,4 @@ def ejemplo(request):
         'formulas': formulas
     }
 
-    return render(request, 'ejemplo.html', contexto)
+    return render(request, 'ejercicios.html', contexto)

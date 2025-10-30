@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'aplicaciones.api',
-    'aplicaciones.ejemplo.apps.EjemploConfig'
+    'aplicaciones.ejercicios.apps.EjerciciosConfig'
 ]
 
 MIDDLEWARE = [

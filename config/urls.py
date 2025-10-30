@@ -31,5 +31,5 @@ urlpatterns = [
     # Rutas de autenticación (login, logout, password reset, ...)
     path('accounts/', include('django.contrib.auth.urls')),
 
-    path('ejemplo/', include('aplicaciones.ejemplo.urls')),
+    path('ejercicios/', include('aplicaciones.ejercicios.urls')),
 ]
