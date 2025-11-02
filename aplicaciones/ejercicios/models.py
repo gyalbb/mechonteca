@@ -15,6 +15,7 @@ class Pruebas(models.Model):
     completada = models.BooleanField(default=False)
     correctas = models.IntegerField(default=0)
     incorrectas = models.IntegerField(default=0)
+    cantidad_preguntas = models.IntegerField()
 
 class Preguntas(models.Model):
     prueba = models.ForeignKey(Pruebas, on_delete=models.PROTECT)

@@ -23,34 +23,47 @@
 </head>
 <body>
     <div>
-        {{prueba.usuario}}
+        Usuario: {{prueba.usuario}}
     </div>
     <div>
-        {{prueba.fecha_creacion}}
+        Fecha de creación: {{prueba.fecha_creacion}}
     </div>
+    <div>
+        Cantidad de preguntas: {{prueba.cantidad_preguntas}}
+    </div>
+    <form method="post" action="{% url 'ejercicios:guardar-prueba' %}">
+        {% csrf_token %}
     <div>
         {% for pregunta in preguntas %}
         <div>
-            {{ pregunta.topico }}
+           Tópico: {{ pregunta.topico }}
         </div>
         <div>
-            {{ pregunta.num_pregunta }}
+            {{ pregunta.num_pregunta }}:
         </div>
         <div>
-            {{ pregunta.encunciado }}
+            Enunciado Pregunta: {{ pregunta.enunciado }}
         </div>
         <div>
             $${{ pregunta.ejercicio }}$$
         </div>
         <div>
+            <input type="hidden" name="prueba_id" value="{{prueba.id}}" />
+        </div>
+        <div>
             {% for alternativa in pregunta.alternativas %}
             <div>
-                {{ alternativa.orden }}:
+                <input type="radio" name="pregunta_{{pregunta.id}}" id="{{alternativa.id}}" required {% if alternativa.respondida %} disabled {% endif %} value="{{alternativa.formula}}">
                 $${{ alternativa.formula }}$$
+                </input>
             </div>
             {% endfor %}
         </div>
         {% endfor %}
     </div>
+    <div>
+        <button type="submit" {% if prueba.completada %} disabled {% endif %} > Marcar alternativas </button>
+    </div>
+    </form>
 </body>
 </html>
