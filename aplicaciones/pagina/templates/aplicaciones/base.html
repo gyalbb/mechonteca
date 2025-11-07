@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}Inicio{% endblock title %}</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --usm-blue: #007bff;
+            --usm-gold: #ffc107;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f4f6f9; }
+        .header-bg { background-color: var(--usm-blue); }
+        .btn-usm-primary { background-color: var(--usm-blue); color: white; }
+    </style>
+    
+    {% block extra_css %}{% endblock extra_css %} 
+</head>
+<body>
+    
+    {% include 'aplicaciones/includes/header.html' %} 
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {% block contenido %}
+        {% endblock contenido %}
+    </div>
+
+    {% include 'aplicaciones/includes/footer.html' %} 
+
+    {% block extra_js %}{% endblock extra_js %}
+
+</body>
+</html>

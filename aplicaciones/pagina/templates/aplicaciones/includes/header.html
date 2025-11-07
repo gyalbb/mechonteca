@@ -1,0 +1,56 @@
+{% load static %}
+<header class="header-bg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+        
+        <div class="flex items-center space-x-3 icon-usm-group">
+            
+            <img src="{% static 'aplicaciones/img/logo_equipo.png' %}" 
+                 alt="Logo Equipo" 
+                 class="h-14 w-14" /> 
+            
+            <img src="{% static 'aplicaciones/img/logo_usm.png' %}" 
+                 alt="Escudo USM" 
+                 class="h-14 w-14" />
+            
+            <div class="text-2xl font-bold text-white">
+                <span class="text-yellow-400">Mechonteca</span> UTFSM
+            </div>
+        </div>
+
+        <nav class="flex items-center space-x-4">
+            
+            <a href="{% url 'index' %}" class="nav-link text-white font-medium">Inicio</a>
+            
+            {% if user.is_authenticated %}
+                {# Si el usuario está autenticado, mostramos Dashboard y Biblioteca #}
+                <a href="{% url 'dashboard:dashboard_view' %}" class="nav-link text-white font-medium hover:text-yellow-400">Dashboard</a>
+                <a href="{% url 'recursos:lista_recursos' %}" class="nav-link text-white font-medium hover:text-yellow-400">
+                    Biblioteca
+                </a>
+            {% else %}
+                {# Si no, lo lleva a la lista de recursos pública #}
+                <a href="{% url 'recursos:lista_recursos' %}" class="nav-link text-white font-medium hover:text-yellow-400">Biblioteca</a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+                <!-- Icono de Ajustes -->
+                <a href="{% url 'ajustes' %}" class="nav-link text-white font-medium p-1 rounded-full border border-white hover:bg-yellow-400 hover:border-yellow-400 transition duration-150" title="Ajustes">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </a>
+                <a href="{% url 'mi_cuenta' %}" class="nav-link text-white font-medium p-1 rounded-full border border-white hover:bg-yellow-400 hover:border-yellow-400 transition duration-150" title="Mi Cuenta">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-link text-white font-medium p-1 rounded-full border border-white hover:bg-yellow-400 hover:border-yellow-400 transition duration-150" title="Iniciar Sesión">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </a>
+            {% endif %}
+        </nav>
+    </div>
+</header>   

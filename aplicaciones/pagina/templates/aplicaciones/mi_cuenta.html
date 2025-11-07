@@ -1,0 +1,26 @@
+{% extends 'aplicaciones/base.html' %}
+{% block title %}Mi Cuenta{% endblock %}
+
+{% block contenido %}
+<div class="relative max-w-md mx-auto my-10 bg-white p-8 rounded-lg shadow-xl text-center">
+    <a href="{% url 'index' %}" class="absolute top-8 left-8 text-gray-400 hover:text-gray-600 transition-colors" title="Volver al inicio">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-4">
+        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+    </svg>
+    <h1 class="text-3xl font-extrabold text-gray-800 mb-2">Mi Cuenta</h1>
+    
+    <p class="text-xl text-blue-600 font-semibold mb-6">Usuario: {{ user.username }}</p>
+    
+    <form method="post" action="{% url 'logout' %}" class="mt-8">
+        {% csrf_token %}
+        <button type="submit" class="w-full py-3 bg-red-600 text-white font-bold rounded-md hover:bg-red-700 transition duration-150">
+            Cerrar Sesión
+        </button>
+    </form>
+</div>
+{% endblock contenido %}

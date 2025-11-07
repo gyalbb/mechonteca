@@ -1,0 +1,86 @@
+{% extends 'aplicaciones/base.html' %}
+
+{% block contenido %}
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-5xl font-extrabold text-gray-800 text-center mb-12">
+        {{ saludo }}
+    </h1>
+
+    <!-- Mensaje de recomendación -->
+    <div class="bg-green-100 border-l-4 border-green-500 text-green-800 p-4 mb-8 rounded-md shadow-sm" role="alert">
+        <div class="flex items-center">
+            <div class="py-1"><svg class="fill-current h-6 w-6 text-green-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-9a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1zm1-4a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2H10a1 1 0 0 1-1-1z"/></svg></div>
+            <div>
+                <p class="font-bold">Recomendación</p>
+                <p class="text-sm">Para comenzar, te sugerimos realizar tu diagnóstico. Recuerda que puedes dar en cualquier momento tu diagnóstico. </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Asignaturas, ahora encerrada en un contenedor -->
+    <div class="bg-white p-8 rounded-xl shadow-lg">
+        <div class="mb-10">
+            <h2 class="text-3xl font-bold text-gray-900">
+                Asignaturas Disponibles
+            </h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for asignatura in asignaturas %}
+                {% if asignatura.slug == 'calculo' %}
+                    <!-- Tarjeta ACTIVA para Cálculo -->
+                    <div class="p-6 bg-gray-50 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <h3 class="flex items-center text-2xl font-bold text-blue-800 mb-4">
+                                <span class="mr-3 text-3xl">📚</span>
+                                {{ asignatura.nombre }}
+                            </h3>
+                            <div class="border-t border-gray-200 pt-4">
+                                <p class="text-gray-600 font-semibold mb-2">Contenidos a estudiar:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1 mb-6 text-sm">
+                                    <li>Límites</li>
+                                    <li>Derivadas</li>
+                                    <li>Integrales</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <a href="{% url 'dashboard:diagnostico_view' asignatura_slug=asignatura.slug %}" class="w-full block text-center bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200">
+                                Iniciar Diagnóstico
+                            </a>
+                            <!-- Nuevo botón "Ver Niveles" -->
+                            <a href="{% url 'dashboard:niveles_view' %}" class="w-full block text-center mt-2 bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-md hover:bg-gray-300 transition-colors duration-200">
+                                Ver Niveles
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <!-- Tarjeta INACTIVA para las demás asignaturas -->
+                    <div class="relative p-6 bg-gray-50 rounded-2xl flex flex-col justify-between overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-4 py-1 transform rotate-45 translate-x-8 translate-y-3">
+                            Próximamente
+                        </div>
+                        <div class="opacity-40 pointer-events-none">
+                            <h3 class="flex items-center text-2xl font-bold text-blue-800 mb-4">
+                                <span class="mr-3 text-3xl">📚</span>
+                                {{ asignatura.nombre }}
+                            </h3>
+                            <div class="border-t border-gray-200 pt-4">
+                                <p class="text-gray-600 font-semibold mb-2">Contenidos a estudiar:</p>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1 mb-6 text-sm">
+                                    <li>Contenido no disponible</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <a class="w-full block text-center bg-gray-300 text-gray-500 font-bold py-2 px-4 rounded-md cursor-not-allowed">
+                            Iniciar Diagnóstico
+                        </a>
+                    </div>
+                {% endif %}
+            {% empty %}
+            <p class="text-center text-gray-500 col-span-full">No hay asignaturas disponibles en este momento.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

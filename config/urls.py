@@ -1,35 +1,32 @@
-"""
-URL configuration for config project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
+
+# Importar vistas de la app 'pagina'
+from aplicaciones.pagina import views as pagina_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Logout accesible vía GET y redirige a la raíz — útil para enlaces globales
-    path('logout/', LogoutView.as_view(next_page='/', template_name='registration/logged_out.html'), name='logout'),
-    # Ruta principal (la raíz '/') es gestionada por la aplicación 'pagina'
-    path('', include('aplicaciones.pagina.urls')), 
-    
-    # La ruta '/almacen/' es gestionada por la app almacen
-    path('almacen/', include('aplicaciones.almacen.urls')),
-    path('api/', include('aplicaciones.api.urls')),
-    # Rutas de autenticación (login, logout, password reset, ...)
-    path('accounts/', include('django.contrib.auth.urls')),
 
-    path('ejercicios/', include('aplicaciones.ejercicios.urls')),
+    # Rutas de la aplicación principal 'pagina'
+    path('', include('aplicaciones.pagina.urls')),
+
+    # Rutas de la aplicación 'recursos' (Biblioteca)
+    path('biblioteca/', include('aplicaciones.recursos.urls')), # Aseguramos que la URL base sea 'biblioteca/'
+
+    # Rutas para la nueva aplicación 'dashboard'
+    path('dashboard/', include('aplicaciones.dashboard.urls')),
+
+    # Rutas de autenticación de Django
+    path('login/', auth_views.LoginView.as_view(
+        template_name='aplicaciones/login.html',
+        redirect_authenticated_user=True
+    ), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
+
+# Servir archivos media en modo DEBUG
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
