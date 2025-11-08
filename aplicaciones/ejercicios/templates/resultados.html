@@ -13,6 +13,9 @@
         Fecha de creación: {{ prueba.fecha_creacion }}
     </div>
     <div>
+        Fecha en que fue completada: {{ prueba.fecha_completada }}
+    </div>
+    <div>
         Correctas: {{ prueba.correctas }}
     </div>
     <div>
@@ -20,6 +23,9 @@
     </div>
     <div>
         Completada: {{ prueba.completada }}
+    </div>
+    <div>
+        Porcentaje de acierto: {% widthratio prueba.correctas prueba.cantidad_preguntas 100 %}%
     </div>
 </body>
 </html>

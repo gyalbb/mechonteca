@@ -4,7 +4,14 @@ from .models import Alternativas, Ejercicios, Preguntas, Pruebas
 import random
 
 def index(request):
-    return render(request, 'index.html')
+    topicos = Ejercicios.objects.values_list('topico', flat=True).distinct().order_by('topico')
+
+    contexto = {
+        'topicos': topicos
+    }
+
+    return render(request, 'index.html', contexto)
+    
 
 # Create your views here.
 def ejercicios(request):
@@ -29,8 +36,11 @@ def ejercicios(request):
 
 def crear_prueba(request):
     usuario = request.POST.get('username')
-    ejercicios_todos = list(Ejercicios.objects.all())
-    seleccion_ejercicios = random.sample(ejercicios_todos, 15)
+    topicos = request.POST.getlist('topicos')
+    if len(topicos) == 0:
+        topicos = Ejercicios.objects.values_list('topico', flat=True).distinct().order_by('topico')
+    seleccion_ejercicios = list(Ejercicios.objects.filter(topico__in=topicos).order_by('?')[:15])
+    seleccion_ejercicios.sort(key=lambda x: x.topico)
     prueba = Pruebas.objects.create(usuario=usuario, cantidad_preguntas=15)
     num_pregunta = 1
     preguntas_template = list()
@@ -44,7 +54,8 @@ def crear_prueba(request):
             Alternativas.objects.create(pregunta=pregunta, orden=orden, formula=opcion)
             alternativas.append({
                 'orden': orden,
-                'formula': opcion
+                'formula': opcion,
+                'seleccionada': False
             })
             orden += 1
         
@@ -71,7 +82,7 @@ def obtener_prueba(request):
     preguntas = Preguntas.objects.filter(prueba=prueba).select_related('ejercicio').order_by('num_pregunta')
     preguntas_template = list()
     for pregunta in preguntas:
-        alternativas = Alternativas.objects.filter(pregunta=pregunta).order_by('orden').values('formula','orden')
+        alternativas = Alternativas.objects.filter(pregunta=pregunta).order_by('orden').values('formula','orden','seleccionada')
         preguntas_template.append({
             'id': pregunta.id,
             'respondida': pregunta.respuesta != None,
@@ -108,10 +119,16 @@ def guardar_prueba(request):
                 correctas += 1
             else:
                 incorrectas += 1
+            alternativa = get_object_or_404(Alternativas, pregunta=pregunta, formula=value)
+            alternativa.seleccionada = True
+            alternativa.save()
 
     prueba.correctas = correctas
     prueba.incorrectas = incorrectas
     prueba.completada = (prueba.cantidad_preguntas == (correctas + incorrectas))
+    if prueba.completada:
+        prueba.fecha_completada = datetime.datetime.now()
+        
     prueba.save()
 
     contexto = {
@@ -126,4 +143,8 @@ def ver_resultados(request):
 
     return render(request, 'resultados.html', {'prueba': prueba})
 
+def obtener_pruebas_usuario(request):
+    usuario = request.GET.get('username')
+    pruebas = Pruebas.objects.filter(usuario=usuario).order_by('id')
+    return render(request, 'lista-pruebas.html', {'pruebas': pruebas})
     
