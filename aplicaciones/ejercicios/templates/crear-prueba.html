@@ -29,6 +29,9 @@
         Fecha de creación: {{prueba.fecha_creacion}}
     </div>
     <div>
+        Fecha en que fue completada: {{prueba.fecha_completada}}
+    </div>
+    <div>
         Cantidad de preguntas: {{prueba.cantidad_preguntas}}
     </div>
     <form method="post" action="{% url 'ejercicios:guardar-prueba' %}">
@@ -53,7 +56,7 @@
         <div>
             {% for alternativa in pregunta.alternativas %}
             <div>
-                <input type="radio" name="pregunta_{{pregunta.id}}" id="{{alternativa.id}}" required {% if alternativa.respondida %} disabled {% endif %} value="{{alternativa.formula}}">
+                <input type="radio" name="pregunta_{{pregunta.id}}" id="{{alternativa.id}}" required {% if pregunta.respondida %} disabled {% endif %} {% if alternativa.seleccionada %} checked {% endif %} value="{{alternativa.formula}}">
                 $${{ alternativa.formula }}$$
                 </input>
             </div>

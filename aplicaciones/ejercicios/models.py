@@ -12,6 +12,7 @@ class Ejercicios(models.Model):
 class Pruebas(models.Model):
     usuario = models.CharField(max_length=255)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_completada = models.DateTimeField(null=True)
     completada = models.BooleanField(default=False)
     correctas = models.IntegerField(default=0)
     incorrectas = models.IntegerField(default=0)
@@ -29,5 +30,6 @@ class Alternativas(models.Model):
     pregunta = models.ForeignKey(Preguntas, on_delete=models.PROTECT)
     orden = models.IntegerField()
     formula = models.CharField(max_length=255)
+    seleccionada = models.BooleanField(default=False)
      
 # Create your models here.
