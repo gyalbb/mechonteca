@@ -9,7 +9,7 @@ def index(request):
     equipo = [
         {
             'id': 'integrante-1',
-            'nombre': 'Nombre Integrante 1',
+            'nombre': 'Ángela Ibacache',
             'rol': 'Rol',
             'imagen': 'aplicaciones/img/integrante_1.png',
             'descripcion': 'Descripción del primer integrante.'

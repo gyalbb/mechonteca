@@ -1,24 +1,130 @@
 {% extends 'aplicaciones/base.html' %}
 
+{% block extra_css %}
+<style>
+    /* Animación fade-in para el dashboard */
+    .dashboard-container {
+        animation: fadeIn 0.6s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Tipografía consistente */
+    .dashboard-container h1,
+    .dashboard-container h2,
+    .dashboard-container h3 {
+        font-family: 'Poppins', 'Inter', sans-serif;
+    }
+    
+    /* Cards de asignaturas mejoradas */
+    .asignatura-card {
+        background: white;
+        border-radius: 16px;
+        border: 1px solid rgba(37, 99, 235, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+    
+    .asignatura-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15);
+    }
+    
+    .asignatura-card-inactive {
+        background: #f9fafb;
+        opacity: 0.7;
+    }
+    
+    .asignatura-card-inactive:hover {
+        transform: none;
+    }
+    
+    /* Botón institucional */
+    .btn-institucional {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: white;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        display: inline-block;
+        text-align: center;
+    }
+    
+    .btn-institucional:hover {
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+    }
+    
+    .btn-secundario {
+        background: #f3f4f6;
+        color: #374151;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+        text-align: center;
+    }
+    
+    .btn-secundario:hover {
+        background: #e5e7eb;
+        transform: translateY(-2px);
+    }
+    
+    /* Alert mejorado */
+    .alert-recomendacion {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        border-left: 4px solid #10b981;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
+    }
+    
+    /* Badge próximamente */
+    .badge-proximo {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 0.25rem 1rem;
+        transform: rotate(45deg) translate(25%, -50%);
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+    }
+</style>
+{% endblock extra_css %}
+
 {% block contenido %}
-<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+<!-- Fondo con degradado azul sutil -->
+<div class="dashboard-container" style="background: linear-gradient(180deg, #f8fafc 0%, #e0f2fe 100%); min-height: 100vh; padding-bottom: 3rem;">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
     <h1 class="text-5xl font-extrabold text-gray-800 text-center mb-12">
         {{ saludo }}
     </h1>
 
-    <!-- Mensaje de recomendación -->
-    <div class="bg-green-100 border-l-4 border-green-500 text-green-800 p-4 mb-8 rounded-md shadow-sm" role="alert">
+    <!-- Mensaje de recomendación mejorado -->
+    <div class="alert-recomendacion text-green-800 p-5 mb-8" role="alert">
         <div class="flex items-center">
-            <div class="py-1"><svg class="fill-current h-6 w-6 text-green-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-9a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1zm1-4a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2H10a1 1 0 0 1-1-1z"/></svg></div>
+            <div class="py-1"><svg class="fill-current h-6 w-6 text-green-600 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zM10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-9a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2h-2a1 1 0 0 1-1-1zm1-4a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2H10a1 1 0 0 1-1-1z"/></svg></div>
             <div>
-                <p class="font-bold">Recomendación</p>
-                <p class="text-sm">Para comenzar, te sugerimos realizar tu diagnóstico. Recuerda que puedes dar en cualquier momento tu diagnóstico. </p>
+                <p class="font-bold text-lg">Recomendación</p>
+                <p class="text-sm">Para comenzar, te sugerimos realizar tu diagnóstico. Recuerda que puedes dar en cualquier momento tu diagnóstico.</p>
             </div>
         </div>
     </div>
 
-    <!-- Sección de Asignaturas, ahora encerrada en un contenedor -->
-    <div class="bg-white p-8 rounded-xl shadow-lg">
+    <!-- Sección de Asignaturas con contenedor mejorado -->
+    <div class="bg-white p-10 rounded-2xl shadow-lg border border-gray-100">
         <div class="mb-10">
             <h2 class="text-3xl font-bold text-gray-900">
                 Asignaturas Disponibles
@@ -29,7 +135,7 @@
             {% for asignatura in asignaturas %}
                 {% if asignatura.slug == 'calculo' %}
                     <!-- Tarjeta ACTIVA para Cálculo -->
-                    <div class="p-6 bg-gray-50 rounded-2xl flex flex-col justify-between">
+                    <div class="asignatura-card p-6 flex flex-col justify-between">
                         <div>
                             <h3 class="flex items-center text-2xl font-bold text-blue-800 mb-4">
                                 <span class="mr-3 text-3xl">📚</span>
@@ -44,37 +150,38 @@
                                 </ul>
                             </div>
                         </div>
-                        <div>
-                            <a href="{% url 'dashboard:diagnostico_view' asignatura_slug=asignatura.slug %}" class="w-full block text-center bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200">
+                        <div class="space-y-3">
+                            <a href="{% url 'dashboard:diagnostico_view' asignatura_slug=asignatura.slug %}" class="btn-institucional w-full">
                                 Iniciar Diagnóstico
                             </a>
-                            <!-- Nuevo botón "Ver Niveles" -->
-                            <a href="{% url 'dashboard:niveles_view' %}" class="w-full block text-center mt-2 bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-md hover:bg-gray-300 transition-colors duration-200">
+                            <a href="{% url 'dashboard:niveles_view' %}" class="btn-secundario w-full">
                                 Ver Niveles
                             </a>
                         </div>
                     </div>
                 {% else %}
                     <!-- Tarjeta INACTIVA para las demás asignaturas -->
-                    <div class="relative p-6 bg-gray-50 rounded-2xl flex flex-col justify-between overflow-hidden">
-                        <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-4 py-1 transform rotate-45 translate-x-8 translate-y-3">
+                    <div class="asignatura-card asignatura-card-inactive relative p-6 flex flex-col justify-between overflow-hidden">
+                        <div class="absolute top-0 right-0 badge-proximo">
                             Próximamente
                         </div>
-                        <div class="opacity-40 pointer-events-none">
-                            <h3 class="flex items-center text-2xl font-bold text-blue-800 mb-4">
+                        <div class="opacity-50 pointer-events-none">
+                            <h3 class="flex items-center text-2xl font-bold text-gray-600 mb-4">
                                 <span class="mr-3 text-3xl">📚</span>
                                 {{ asignatura.nombre }}
                             </h3>
                             <div class="border-t border-gray-200 pt-4">
-                                <p class="text-gray-600 font-semibold mb-2">Contenidos a estudiar:</p>
-                                <ul class="list-disc list-inside text-gray-700 space-y-1 mb-6 text-sm">
+                                <p class="text-gray-500 font-semibold mb-2">Contenidos a estudiar:</p>
+                                <ul class="list-disc list-inside text-gray-500 space-y-1 mb-6 text-sm">
                                     <li>Contenido no disponible</li>
                                 </ul>
                             </div>
                         </div>
-                        <a class="w-full block text-center bg-gray-300 text-gray-500 font-bold py-2 px-4 rounded-md cursor-not-allowed">
-                            Iniciar Diagnóstico
-                        </a>
+                        <div class="opacity-50">
+                            <button class="w-full bg-gray-300 text-gray-500 font-semibold py-3 px-4 rounded-xl cursor-not-allowed">
+                                Iniciar Diagnóstico
+                            </button>
+                        </div>
                     </div>
                 {% endif %}
             {% empty %}
@@ -82,5 +189,6 @@
             {% endfor %}
         </div>
     </div>
+</div>
 </div>
 {% endblock contenido %}

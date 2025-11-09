@@ -24,12 +24,24 @@
             --texto-claro: #FFFFFF;         /* Texto sobre fondos oscuros */
         }
         
+        /* Footer fijo al fondo con flexbox */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        
         body { 
             font-family: 'Poppins', 'Inter', sans-serif; 
             background: linear-gradient(180deg, #F8FAFC 0%, #E0F2FE 100%);
             background-attachment: fixed;
             background-size: cover;
             color: var(--texto-principal);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        main {
+            flex: 1;
         }
         
         /* Header profesional */
@@ -324,10 +336,10 @@
     
     {% include 'aplicaciones/includes/header.html' %} 
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {% block contenido %}
         {% endblock contenido %}
-    </div>
+    </main>
 
     {% include 'aplicaciones/includes/footer.html' %} 
 
