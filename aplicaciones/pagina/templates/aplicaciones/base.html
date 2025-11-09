@@ -8,16 +8,314 @@
     <title>{% block title %}Inicio{% endblock title %}</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500&family=Manrope:wght@600;700&family=Nunito+Sans:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
+        /* Paleta profesional y académica USM */
         :root {
-            --usm-blue: #007bff;
-            --usm-gold: #ffc107;
+            --azul-institucional: #2B5797;  /* Header y footer USM */
+            --fondo-general: #F4F5F7;       /* Gris crema limpio */
+            --tarjetas: #E6F2FB;            /* Celeste suave para tarjetas */
+            --boton-principal: #E84A4A;     /* Rojo coral intenso */
+            --boton-hover: #C83E3E;         /* Rojo coral oscuro */
+            --texto-principal: #222222;     /* Títulos y texto principal */
+            --texto-secundario: #4A4A4A;    /* Texto secundario */
+            --texto-claro: #FFFFFF;         /* Texto sobre fondos oscuros */
         }
-        body { font-family: 'Inter', sans-serif; background-color: #f4f6f9; }
-        .header-bg { background-color: var(--usm-blue); }
-        .btn-usm-primary { background-color: var(--usm-blue); color: white; }
+        
+        body { 
+            font-family: 'Poppins', 'Inter', sans-serif; 
+            background: linear-gradient(180deg, #F8FAFC 0%, #E0F2FE 100%);
+            background-attachment: fixed;
+            background-size: cover;
+            color: var(--texto-principal);
+        }
+        
+        /* Header profesional */
+        .header-bg { 
+            background: var(--azul-institucional);
+            border-bottom: none;
+            box-shadow: 0 2px 8px rgba(43,87,151,0.15);
+        }
+        
+        .header-bg .text-white {
+            color: var(--texto-claro) !important;
+        }
+        
+        /* Logo Mechonteca: color institucional rojo (sin gradiente) */
+        .text-sky-blue {
+            color: #E84A4A;
+            font-weight: 700;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+            -webkit-text-fill-color: initial;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+        
+        .text-neutral-light {
+            color: #F9FAFB;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+        
+        .header-bg .text-yellow-400 {
+            color: var(--boton-principal) !important;
+            font-weight: 700;
+        }
+        
+        .header-bg .nav-link {
+            color: var(--texto-claro) !important;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .header-bg .nav-link:hover {
+            color: var(--tarjetas) !important;
+            transform: translateY(-1px);
+        }
+        
+        .header-bg .border-white {
+            border-color: var(--texto-claro) !important;
+        }
+        
+        .header-bg .hover\:bg-yellow-400:hover {
+            background-color: rgba(255,255,255,0.15) !important;
+        }
+        
+        .header-bg .hover\:border-yellow-400:hover {
+            border-color: var(--tarjetas) !important;
+        }
+        
+        .header-bg svg {
+            stroke: var(--texto-claro);
+        }
+        
+        .header-bg .hover\:bg-yellow-400:hover svg {
+            stroke: var(--texto-claro);
+        }
+        
+        /* Botones profesionales */
+        .btn-usm-primary { 
+            background: linear-gradient(135deg, #E84A4A 0%, #DC3545 100%);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(232,74,74,0.25);
+            font-weight: 600;
+            border-radius: 0.75rem;
+            display: inline-block;
+        }
+        
+        .btn-usm-primary:hover {
+            background: linear-gradient(to right, #E84A4A, #F87171);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 6px 20px rgba(232,74,74,0.35);
+        }
+        
+        /* Tarjetas con sombra */
+        .page-content {
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid rgba(43,87,151,0.08);
+        }
+        
+            .page-content-transparent {
+                background: transparent;
+                box-shadow: none;
+                border: none;
+            }
+        
+            /* Contenedor principal (hero + tarjetas + botón) */
+            .main-container {
+                background: #FFFFFF;
+                border-radius: 20px;
+                border: 1px solid rgba(0,0,0,0.08);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                margin: 40px auto;
+                padding: 50px;
+                max-width: 1100px;
+            }
+
+        .bg-gray-50 {
+            background-color: var(--tarjetas) !important;
+            box-shadow: 0 2px 8px rgba(43,87,151,0.1);
+            border: 1px solid rgba(43,87,151,0.08);
+        }
+        
+        .text-blue-600 {
+            color: var(--boton-principal) !important;
+        }
+        
+        .border-yellow-400 {
+            border-color: var(--boton-principal) !important;
+        }
+        
+        .text-gray-800 {
+            color: var(--texto-principal) !important;
+        }
+        
+        .text-gray-600 {
+            color: var(--texto-secundario) !important;
+        }
+        
+        .text-gray-500 {
+            color: rgba(74,74,74,0.85) !important;
+        }
+        
+        /* Hero section profesional */
+        .hero-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #1E293B;
+            letter-spacing: -0.5px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            padding-bottom: 1.2rem;
+        }
+        
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #E84A4A;
+            border-radius: 4px;
+        }
+        
+        .hero-subtitle {
+            font-family: 'DM Serif Display', serif;
+            font-style: italic;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #E84A4A;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+        
+        .hero-section {
+              background: transparent;
+            border-radius: 1rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+              border: none;
+              box-shadow: none;
+        }
+        
+        /* Párrafo introductorio */
+        .hero-section + p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: #374151;
+            line-height: 1.6;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+        
+        /* Animación fade-in con slide-up */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Tarjetas de beneficios dentro del contenedor principal */
+        .benefit-card {
+            background: #f1f8ff !important;
+            border-radius: 15px !important;
+            border: 1px solid rgba(0,0,0,0.05) !important;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05) !important;
+            padding: 25px !important;
+            text-align: center;
+            transition: all 0.25s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.10) !important;
+        }
+        
+        .benefit-card svg {
+            transition: transform 0.3s ease;
+        }
+        
+        .benefit-card:hover svg {
+            transform: scale(1.1);
+        }
+        
+        /* Íconos de tarjetas de beneficios */
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+        }
+        
+        .benefit-card:hover .benefit-icon {
+            transform: scale(1.1);
+        }
+        
+        .icon-diagnostico {
+            color: #60A5FA;
+        }
+        
+        .icon-material {
+            color: #1E40AF;
+        }
+        
+        .icon-ruta {
+            color: #F87171;
+        }
+        
+        /* Tipografía de tarjetas de beneficios */
+        .benefit-title {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: #1E293B;
+            margin-top: 0.6rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .benefit-text {
+            font-family: 'Nunito Sans', sans-serif;
+            font-weight: 400;
+            font-size: 0.96rem;
+            color: #374151;
+            line-height: 1.55;
+        }
+        
+        /* Footer profesional */
+        footer {
+            background: var(--azul-institucional) !important;
+            color: #E8E8E8 !important;
+            border-top: none;
+            box-shadow: 0 -2px 8px rgba(43,87,151,0.15);
+        }
+        
+        footer p {
+            color: #E8E8E8 !important;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+        }
     </style>
     
     {% block extra_css %}{% endblock extra_css %} 

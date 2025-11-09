@@ -5,54 +5,77 @@
 
 {% block contenido %}
     
-    <section id="home" class="page-content bg-white p-7 rounded-lg shadow-lg">
+    <section id="home" class="main-container">
         
-        <h1 class="text-5xl font-extrabold text-gray-800 mb-2">Prepárate para la USM</h1>
+        <div class="hero-section">
+            <h1 class="hero-title">Tu aventura en la USM empieza aquí</h1>
+            
+            <p class="hero-subtitle">
+                Para que estudiar sea tan fácil como la manteca.
+            </p>
+        </div>
         
-        <p class="text-2xl font-light text-blue-600 mb-8 mt-2 italic border-l-4 border-yellow-400 pl-4">
-            "Para que estudiar sea tan facil como la manteca."
+        <p class="text-xl text-gray-600 mb-8">
+            Empieza tu camino universitario con confianza. 
+            En Mechonteca encontrarás herramientas prácticas y colaborativas para aprender, repasar y crecer junto a otros estudiantes de la USM.
         </p>
         
-        <p class="text-xl text-gray-600 mb-8">Texto.</p>
-        
-        <div class="grid md:grid-cols-3 gap-8 text-center">
-            <div class="p-6 bg-gray-50 rounded-2xl">
-                <div class="text-4xl text-blue-600 mb-3">🧠</div>
-                <h3 class="font-semibold text-lg mb-2">Beneficio 1</h3>
-                <p class="text-gray-500 text-sm">Obejtivo 1.</p>
+        <!-- Sección de beneficios -->
+            <div class="benefits-section" style="background: transparent;">
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <!-- Tarjeta 1: Diagnóstico Preciso -->
+                <div class="benefit-card">
+                    <div class="flex justify-center">
+                        <i class="fa-solid fa-magnifying-glass-chart benefit-icon icon-diagnostico"></i>
+                    </div>
+                    <h3 class="benefit-title">Diagnóstico Preciso</h3>
+                    <p class="benefit-text">
+                        Detecta tus fortalezas y enfoca tu estudio en Cálculo, Álgebra y Física.
+                    </p>
+                </div>
+            
+            <!-- Tarjeta 2: Material UGC -->
+            <div class="benefit-card">
+                <div class="flex justify-center">
+                    <i class="fa-solid fa-folder-open benefit-icon icon-material"></i>
+                </div>
+                <h3 class="benefit-title">Material UGC</h3>
+                <p class="benefit-text">
+                    Accede a guías, controles y apuntes creados por estudiantes USM.
+                </p>
             </div>
             
-            <div class="p-6 bg-gray-50 rounded-2xl">
-                <div class="text-4xl text-blue-600 mb-3">📚</div>
-                <h3 class="font-semibold text-lg mb-2">Beneficio 2</h3>
-                <p class="text-gray-500 text-sm">Obejtivo 2</p>
-            </div>
-            
-            <div class="p-6 bg-gray-50 rounded-2xl">
-                <div class="text-4xl text-blue-600 mb-3">🚀</div>
-                <h3 class="font-semibold text-lg mb-2">Beneficio 3</h3>
-                <p class="text-gray-500 text-sm">Obejtivo 3</p>
+            <!-- Tarjeta 3: Ruta de Estudio -->
+            <div class="benefit-card">
+                <div class="flex justify-center">
+                    <i class="fa-solid fa-rocket benefit-icon icon-ruta"></i>
+                </div>
+                <h3 class="benefit-title">Ruta de Estudio</h3>
+                <p class="benefit-text">
+                    Sigue una ruta modular y avanza paso a paso en tus ramos base.
+                </p>
             </div>
         </div>
+        </div>
+        <!-- Fin sección de beneficios -->
+        <!-- CTA dentro del contenedor principal -->
+        {% if not user.is_authenticated %}
+        <div class="text-center mt-12">
+            <a href="{% url 'signup' %}" class="btn-usm-primary px-10 py-4 text-xl font-bold">
+                Comienza tu Aventura
+            </a>
+        </div>
+        {% else %}
+        <div class="text-center mt-12">
+            <a href="{% url 'dashboard:dashboard_view' %}" class="btn-usm-primary px-10 py-4 text-xl font-bold">
+                Comienza tu nivelación
+            </a>
+        </div>
+        {% endif %}
     </section>
-    
-    <!-- ========= Botón de Llamada a la Acción ========= -->
-    {% if not user.is_authenticated %}
-    <section class="text-center my-12">
-        <a href="{% url 'signup' %}" class="btn-usm-primary px-10 py-4 text-xl font-bold rounded-xl hover:opacity-90 transition-opacity">
-            Comienza tu Aventura
-        </a>
-    </section>
-    {% else %}
-    <section class="text-center my-12">
-        <a href="{% url 'dashboard:dashboard_view' %}" class="btn-usm-primary px-10 py-4 text-xl font-bold rounded-xl hover:opacity-90 transition-opacity">
-            Ir a Dashboard
-        </a>
-    </section>
-    {% endif %}
 
     <!-- ========= Nueva Sección: Quiénes Somos ========= -->
-    <section id="quienes-somos" class="page-content bg-white p-7 rounded-lg shadow-lg mt-10">
+        <section id="quienes-somos" class="page-content bg-white p-7 rounded-lg shadow-md mt-0 pt-12">
         <!-- Sub-sección: Origen del Proyecto -->
         <div class="flex flex-col md:flex-row items-center gap-8 mb-12 border-b pb-8">
             <!-- Columna de la Imagen -->
