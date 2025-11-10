@@ -66,7 +66,8 @@ def crear_prueba(request):
             'ejercicio': ejercicio.ejercicio,
             'num_pregunta': pregunta.num_pregunta,
             'alternativas': alternativas,
-            'topico': ejercicio.topico
+            'topico': ejercicio.topico,
+            'respuesta_correcta': None
         })
         num_pregunta += 1
 
@@ -90,7 +91,8 @@ def obtener_prueba(request):
             'ejercicio': pregunta.ejercicio.ejercicio,
             'num_pregunta': pregunta.num_pregunta,
             'alternativas': alternativas,
-            'topico': pregunta.ejercicio.topico
+            'topico': pregunta.ejercicio.topico,
+            'respuesta_correcta': pregunta.ejercicio.respuesta_correcta
         })
 
     contexto = {
