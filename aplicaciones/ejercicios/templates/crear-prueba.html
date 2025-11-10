@@ -55,7 +55,7 @@
         </div>
         <div>
             {% for alternativa in pregunta.alternativas %}
-            <div>
+            <div {% if pregunta.respuesta_correcta == alternativa.formula %} style="background-color: green;" {% endif %} {% if pregunta.respuesta_correcta != alternativa.formula and alternativa.seleccionada %} style="background-color: red;" {% endif %}>
                 <input type="radio" name="pregunta_{{pregunta.id}}" id="{{alternativa.id}}" required {% if pregunta.respondida %} disabled {% endif %} {% if alternativa.seleccionada %} checked {% endif %} value="{{alternativa.formula}}">
                 $${{ alternativa.formula }}$$
                 </input>
