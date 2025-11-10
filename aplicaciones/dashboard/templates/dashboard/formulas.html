@@ -1,0 +1,93 @@
+{% extends 'aplicaciones/base.html' %}
+
+{% block title %}{{ titulo_pagina }}{% endblock %}
+
+{% block contenido %}
+<div class="relative max-w-4xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
+    <!-- Volver -->
+    <a href="{% url 'dashboard:dashboard_view' %}" class="absolute top-0 left-0 text-gray-400 hover:text-gray-600 transition-colors" title="Volver al Dashboard">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
+
+    <h1 class="text-3xl font-extrabold text-gray-800 mb-6 border-b pb-3 text-center">
+        Formulario de Cálculo
+    </h1>
+
+    <!-- Navegación -->
+    <div class="border-b border-gray-200 mb-8">
+        <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
+            <!-- Pestaña Límites -->
+            <a href="#" data-tab="limites" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-blue-600 border-blue-600" aria-current="page">
+                Límites
+            </a>
+
+            <!-- Pestaña Derivadas -->
+            <a href="#" data-tab="derivadas" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 transition-colors">
+                Derivadas
+            </a>
+
+            <!-- Pestaña Integrales -->
+            <a href="#" data-tab="integrales" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 transition-colors">
+                Integrales
+            </a>
+        </nav>
+    </div>
+
+    <!-- Contenido -->
+    <div class="mt-8">
+        <!-- Contenido Límites -->
+        <div id="limites-content" class="tab-panel">
+            <p class="text-center text-gray-500 p-8 bg-gray-50 rounded-lg">
+                <strong>Límites:</strong> Aquí se mostrarán las fórmulas.
+            </p>
+        </div>
+
+        <!-- Contenido Derivadas -->
+        <div id="derivadas-content" class="tab-panel hidden">
+            <p class="text-center text-gray-500 p-8 bg-gray-50 rounded-lg">
+                <strong>Derivadas:</strong> Aquí se mostrarán las fórmulas.
+            </p>
+        </div>
+
+        <!-- Contenido Integrales -->
+        <div id="integrales-content" class="tab-panel hidden">
+            <p class="text-center text-gray-500 p-8 bg-gray-50 rounded-lg">
+                <strong>Integrales:</strong> Aquí se mostrarán las fórmulas.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}
+
+{% block extra_js %}
+<!-- Lógica de Pestañas -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.tab-link');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            tabs.forEach(t => {
+                t.classList.remove('text-blue-600', 'border-blue-600');
+                t.classList.add('text-gray-500', 'border-transparent');
+            });
+            panels.forEach(p => p.classList.add('hidden'));
+
+            this.classList.add('text-blue-600', 'border-blue-600');
+            this.classList.remove('text-gray-500', 'border-transparent');
+
+            const targetPanelId = this.dataset.tab + '-content';
+            const targetPanel = document.getElementById(targetPanelId);
+            if (targetPanel) {
+                targetPanel.classList.remove('hidden');
+            }
+        });
+    });
+});
+</script>
+{% endblock extra_js %}

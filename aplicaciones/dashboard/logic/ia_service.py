@@ -3,7 +3,7 @@ import requests
 import json
 from dotenv import load_dotenv
 
-# Cargar variables de entorno desde el archivo .env en la carpeta 'logic'
+# Cargar variables de entorno
 env_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path=env_path)
 
@@ -16,11 +16,9 @@ def call_ai_api(text):
     API_PROVIDER = os.getenv('API_PROVIDER', '').lower()
 
     if API_PROVIDER != 'gemini' or not API_KEY:
-        # Si no está configurado para Gemini, podrías usar una heurística o lanzar un error.
-        # Por ahora, lanzamos un error claro.
         raise ValueError("El proveedor de IA no está configurado como 'gemini' o falta la API_KEY.")
 
-    # URL base correcta para la API de Gemini
+    # URL de la API de Gemini
     URL_BASE_CORRECTA = "https://generativelanguage.googleapis.com/v1beta/models"
     model_name = os.getenv('GEMINI_MODEL', 'gemini-1.5-flash')
     gemini_url = f"{URL_BASE_CORRECTA}/{model_name}:generateContent"
@@ -47,14 +45,12 @@ def call_ai_api(text):
 
     try:
         resp = requests.post(gemini_url, headers=headers, params=params, json=payload, timeout=45)
-        resp.raise_for_status()  # Lanza un error para respuestas 4xx/5xx
+        resp.raise_for_status()
 
         data = resp.json()
-        # Extraer el texto JSON de la respuesta de Gemini
         json_text = data['candidates'][0]['content']['parts'][0]['text'].strip()
         result = json.loads(json_text)
 
-        # Procesar las recomendaciones para que sean una lista
         recomendaciones_str = result.get('recomendaciones', 'No se recibieron recomendaciones.')
         recomendaciones_lista = [rec.strip() for rec in recomendaciones_str.split('|')]
 
@@ -65,11 +61,9 @@ def call_ai_api(text):
 
     except requests.exceptions.RequestException as e:
         print(f"ERROR: Falló la llamada a la API. {e}")
-        # En caso de fallo de red, podrías devolver un error específico
         raise ConnectionError(f"No se pudo conectar con el servicio de IA. Inténtalo más tarde.")
     except (KeyError, IndexError, json.JSONDecodeError) as e:
         print(f"ERROR: Falló el procesamiento de la respuesta de la API. {e}")
-        # Si la respuesta de la IA no es el JSON esperado
         raise ValueError("La respuesta del servicio de IA no tuvo el formato esperado.")
 
 

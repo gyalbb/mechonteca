@@ -6,8 +6,7 @@ from .logic.ia_service import call_ai_api, is_allowed_topic
 
 @login_required(login_url='login')
 def dashboard_view(request):
-    # Lista de saludos aleatorios. Usamos f-strings para incluir el nombre de usuario.
-    # request.user está disponible gracias al decorador @login_required.
+    # Saludos aleatorios para el usuario.
     saludos = [
         f"¡Qué bueno verte de nuevo, {request.user.username}!",
         f"¡Hola, {request.user.username}! ¿Listo/a para empezar?",
@@ -16,10 +15,8 @@ def dashboard_view(request):
         f"¡Saludos, {request.user.username}! Tu dashboard te esperaba.",
     ]
 
-    # Elegimos un saludo al azar de la lista
     saludo_aleatorio = random.choice(saludos)
 
-    # Obtenemos todas las asignaturas para mostrarlas en el dashboard
     asignaturas = Asignatura.objects.all().order_by('nombre')
 
     contexto = {
@@ -42,7 +39,7 @@ def diagnostico_view(request, asignatura_slug):
     if request.method == 'POST':
         texto_evaluacion = request.POST.get('autoevaluacion', '').strip()
 
-        # --- Validaciones ---
+        # Validaciones
         if len(texto_evaluacion) < 50:
             contexto['error_mensaje'] = "Por favor, proporciona una descripción más detallada (mínimo 50 caracteres)."
             return render(request, 'dashboard/diagnostico.html', contexto)
@@ -51,15 +48,15 @@ def diagnostico_view(request, asignatura_slug):
             contexto['error_mensaje'] = "Tu respuesta no parece estar relacionada con Cálculo. Por favor, enfócate en temas como límites, derivadas o integrales."
             return render(request, 'dashboard/diagnostico.html', contexto)
 
-        # --- Lógica de IA ---
+        # Lógica de IA
         try:
-            # 1. Llamar a la IA
+            # Llamada a la API
             resultado_ia = call_ai_api(texto_evaluacion)
 
-            # 2. Buscar el nivel en la base de datos
+            # Búsqueda en BD
             nivel_encontrado = get_object_or_404(Nivel, nombre__iexact=resultado_ia['nivel'])
             
-            # 3. Preparar el resultado para la plantilla
+            # Preparar resultado
             contexto['resultado'] = {
                 'nivel': nivel_encontrado,
                 'recomendaciones': resultado_ia['recomendaciones']
@@ -68,31 +65,12 @@ def diagnostico_view(request, asignatura_slug):
         except Exception as e:
             contexto['error_mensaje'] = f"Hubo un error al procesar tu diagnóstico: {e}. Por favor, inténtalo de nuevo más tarde."
 
-    # Para GET o después de POST, renderiza la misma plantilla
     return render(request, 'dashboard/diagnostico.html', contexto)
 
 @login_required(login_url='login')
-def niveles_view(request):
-    """Muestra la página con la descripción de todos los niveles."""
-    niveles = Nivel.objects.all().order_by('id') # Ordenamos por ID para un orden consistente
+def formulas_view(request):
+    """Muestra la página de Fórmulas."""
     contexto = {
-        'titulo_pagina': 'Niveles de Conocimiento',
-        'niveles': niveles,
+        'titulo_pagina': 'Formulario de Cálculo',
     }
-    return render(request, 'dashboard/niveles.html', contexto)
-
-@login_required(login_url='login')
-def practica_nivel_view(request, nombre_nivel):
-    """Muestra la página de práctica para un nivel específico."""
-    # Buscamos el nivel en la BD para asegurarnos de que existe
-    nivel = get_object_or_404(Nivel, nombre__iexact=nombre_nivel)
-    
-    # Construimos la ruta de la plantilla dinámicamente
-    # Normalizamos el nombre para evitar problemas con caracteres especiales (ej: Básico -> basico)
-    nombre_normalizado = nivel.nombre.lower().replace('á', 'a').replace('é', 'e').replace('í', 'i').replace('ó', 'o').replace('ú', 'u')
-    nombre_plantilla = f"dashboard/niveles/{nombre_normalizado}.html"
-    
-    contexto = {
-        'nivel': nivel,
-    }
-    return render(request, nombre_plantilla, contexto)
+    return render(request, 'dashboard/formulas.html', contexto)

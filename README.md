@@ -6,8 +6,6 @@ Este es un proyecto web desarrollado con Django, diseñado como una plataforma i
 
 **Diagnóstico con IA**: Un sistema que utiliza la API de Gemini para analizar la autoevaluación de un estudiante y asignarle un nivel de conocimiento (Básico, Intermedio, Avanzado).
 **Dashboard Personal**: Una vez que el usuario inicia sesión, accede a un panel de control personalizado.
-**Niveles de Práctica**: Secciones dedicadas para practicar en cada nivel de conocimiento.
-**Contenidos por Tema**: Las páginas de práctica están organizadas por temas clave de Cálculo: Límites, Derivadas e Integrales.
 **Biblioteca de Recursos**: Una sección donde los usuarios pueden subir y consultar materiales de estudio.
 **Sistema de Autenticación Completo**: Registro, inicio y cierre de sesión.
 **Página de Ajustes**: Una sección para futuras configuraciones de usuario como tema e idioma.

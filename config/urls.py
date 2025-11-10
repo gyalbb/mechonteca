@@ -11,7 +11,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Rutas de la aplicación principal 'pagina'
-    path('', include('aplicaciones.pagina.urls')),
+    path('', pagina_views.index, name='index'),
+    path('signup/', pagina_views.signup, name='signup'),
+    path('mi-cuenta/', pagina_views.mi_cuenta, name='mi_cuenta'),
+    path('ajustes/', pagina_views.ajustes_view, name='ajustes'),
+
 
     # Rutas de la aplicación 'recursos' (Biblioteca)
     path('biblioteca/', include('aplicaciones.recursos.urls')), # Aseguramos que la URL base sea 'biblioteca/'

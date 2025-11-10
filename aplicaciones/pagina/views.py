@@ -4,8 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-    # Aquí puedes editar la información de tu equipo fácilmente.
-    # Las imágenes deben estar en la carpeta 'static/aplicaciones/img/'
+    # Datos del equipo para la página de inicio
     equipo = [
         {
             'id': 'integrante-1',
@@ -45,18 +44,16 @@ def index(request):
     ]
     return render(request, 'aplicaciones/index.html', {'equipo': equipo})
 
-# Vista para el registro de usuarios
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user) # Inicia sesión automáticamente después del registro
-            return redirect('dashboard:dashboard_view') # Redirige al dashboard
+            login(request, user)
+            return redirect('dashboard:dashboard_view')
     else:
         form = UserCreationForm()
     
-    # Añade clases de Tailwind a los campos del formulario para que se vean bien
     form.fields['username'].widget.attrs.update({'class': 'w-full px-3 py-2 border rounded-md mb-4'})
     form.fields['password1'].widget.attrs.update({'class': 'w-full px-3 py-2 border rounded-md mb-4'})
     form.fields['password2'].widget.attrs.update({'class': 'w-full px-3 py-2 border rounded-md'})
