@@ -1,0 +1,78 @@
+{% extends 'aplicaciones/base.html' %}
+
+{% block title %}{{ titulo_pagina }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .ejercitar-container {
+    min-height: calc(100vh - 140px);
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+    padding: 48px 20px;
+    animation: fadeIn .6s ease-out;
+  }
+  @keyframes fadeIn { from {opacity:0; transform: translateY(20px);} to {opacity:1; transform: translateY(0);} }
+  .ejercitar-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    border: 1px solid rgba(37,99,235,0.15);
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 38px 46px;
+  }
+  .ejercitar-title span.subject { color:#1d4ed8; }
+  .ejercitar-title { font-weight: 800; }
+  .placeholder-box {
+    border: 2px dashed #94a3b8;
+    background: #f1f5f9;
+    border-radius: 16px;
+    padding: 28px 26px;
+    text-align: center;
+    color:#475569;
+  }
+  .btn-back {
+    display:inline-flex; align-items:center; gap:8px; font-weight:600; color:#374151;
+    background:#f3f4f6; padding:10px 18px; border-radius:12px; transition:.2s; text-decoration:none;
+  }
+  .btn-back:hover { background:#e5e7eb; transform:translateY(-2px); }
+  .icon-sm { width:22px; height:22px; }
+</style>
+{% endblock extra_css %}
+
+{% block contenido %}
+<div class="ejercitar-container">
+  <div class="ejercitar-card">
+    <div class="mb-6 flex items-start justify-between flex-wrap gap-4">
+      <h1 class="ejercitar-title text-3xl md:text-4xl">
+        Practicar: <span class="subject">{{ asignatura.nombre }}</span>
+      </h1>
+      <a href="{% url 'dashboard:dashboard_view' %}" class="btn-back" title="Volver al Dashboard">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="icon-sm"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+        Volver
+      </a>
+    </div>
+
+    <p class="text-gray-600 mb-8 text-lg">Esta sección pronto incluirá ejercicios interactivos, generación dinámica de problemas y seguimiento de tu progreso. Mientras tanto, aquí tienes un contenedor placeholder.</p>
+
+    <div class="placeholder-box mb-10">
+      <p class="font-semibold mb-2">🚧 Próxima funcionalidad</p>
+      <p class="text-sm">Se mostrarán bloques de ejercicios (Límites, Derivadas, Integrales) con dificultad adaptativa, retroalimentación instantánea y métricas de desempeño.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="p-5 rounded-xl bg-gradient-to-br from-sky-100 to-sky-50 border border-sky-200">
+        <h3 class="font-bold text-sky-800 mb-1">Límites</h3>
+        <p class="text-sm text-sky-700">Práctica conceptual y evaluación de técnicas básicas.</p>
+      </div>
+      <div class="p-5 rounded-xl bg-gradient-to-br from-indigo-100 to-indigo-50 border border-indigo-200">
+        <h3 class="font-bold text-indigo-800 mb-1">Derivadas</h3>
+        <p class="text-sm text-indigo-700">Reglas, composición y optimización.</p>
+      </div>
+      <div class="p-5 rounded-xl bg-gradient-to-br from-emerald-100 to-emerald-50 border border-emerald-200">
+        <h3 class="font-bold text-emerald-800 mb-1">Integrales</h3>
+        <p class="text-sm text-emerald-700">Cálculo, interpretación y aplicaciones.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock contenido %}

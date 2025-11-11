@@ -2,60 +2,158 @@
 
 {% block title %}{{ titulo_pagina }}{% endblock %}
 
+{% block extra_css %}
+<style>
+    /* Animaciones */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.6s ease-out;
+    }
+    
+    .slide-in {
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    /* Contenedor principal mejorado */
+    .formulas-container {
+        background: linear-gradient(to bottom, #f0f7ff 0%, #ffffff 100%);
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);
+        transition: all 0.3s ease;
+    }
+    
+    /* Transiciones suaves */
+    .smooth-transition {
+        transition: all 0.3s ease;
+    }
+    
+    /* Mejora de pestañas */
+    .tab-link {
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .tab-link:hover {
+        transform: translateY(-2px);
+    }
+    
+    .tab-link.active {
+        color: #dc2626 !important;
+        border-color: #dc2626 !important;
+    }
+    
+    /* Contenido vacío mejorado */
+    .empty-content {
+        background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+        border-radius: 12px;
+        padding: 3rem 2rem;
+        text-align: center;
+        color: #475569;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .empty-content:hover {
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);
+        transform: translateY(-2px);
+    }
+    
+    /* Responsive */
+    @media (max-width: 640px) {
+        .formulas-container {
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        
+        .tab-link {
+            font-size: 0.95rem;
+            padding: 0.75rem 0.5rem;
+        }
+    }
+</style>
+{% endblock extra_css %}
+
 {% block contenido %}
 <div class="relative max-w-4xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
     <!-- Volver -->
-    <a href="{% url 'dashboard:dashboard_view' %}" class="absolute top-0 left-0 text-gray-400 hover:text-gray-600 transition-colors" title="Volver al Dashboard">
+    <a href="{% url 'dashboard:dashboard_view' %}" class="absolute top-0 left-0 text-gray-400 hover:text-gray-600 smooth-transition" title="Volver al Dashboard">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
     </a>
 
-    <h1 class="text-3xl font-extrabold text-gray-800 mb-6 border-b pb-3 text-center">
-        Formulario de Cálculo
-    </h1>
-
-    <!-- Navegación -->
-    <div class="border-b border-gray-200 mb-8">
-        <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
-            <!-- Pestaña Límites -->
-            <a href="#" data-tab="limites" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-blue-600 border-blue-600" aria-current="page">
-                Límites
-            </a>
-
-            <!-- Pestaña Derivadas -->
-            <a href="#" data-tab="derivadas" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 transition-colors">
-                Derivadas
-            </a>
-
-            <!-- Pestaña Integrales -->
-            <a href="#" data-tab="integrales" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 transition-colors">
-                Integrales
-            </a>
-        </nav>
-    </div>
-
-    <!-- Contenido -->
-    <div class="mt-8">
-        <!-- Contenido Límites -->
-        <div id="limites-content" class="tab-panel">
-            <p class="text-center text-gray-500 p-8 bg-gray-50 rounded-lg">
-                <strong>Límites:</strong> Aquí se mostrarán las fórmulas.
+    <!-- Contenedor principal con gradiente y sombra -->
+    <div class="formulas-container p-8 fade-in">
+        <!-- Título principal con icono y subtítulo -->
+        <div class="text-center mb-6">
+            <h1 class="text-4xl font-extrabold text-gray-800 mb-3" style="font-family: 'Poppins', sans-serif;">
+                <span class="text-4xl mr-2">∫</span>Formulario de Cálculo
+            </h1>
+            <p class="text-lg text-gray-600 font-medium" style="font-family: 'Poppins', sans-serif;">
+                Explora las fórmulas esenciales de Cálculo organizadas por categoría.
             </p>
         </div>
 
-        <!-- Contenido Derivadas -->
-        <div id="derivadas-content" class="tab-panel hidden">
-            <p class="text-center text-gray-500 p-8 bg-gray-50 rounded-lg">
-                <strong>Derivadas:</strong> Aquí se mostrarán las fórmulas.
-            </p>
+        <!-- Navegación de pestañas -->
+        <div class="border-b border-gray-200 mb-6 mt-8">
+            <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
+                <!-- Pestaña Límites -->
+                <a href="#" data-tab="limites" class="tab-link active whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg" aria-current="page">
+                    Límites
+                </a>
+
+                <!-- Pestaña Derivadas -->
+                <a href="#" data-tab="derivadas" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300">
+                    Derivadas
+                </a>
+
+                <!-- Pestaña Integrales -->
+                <a href="#" data-tab="integrales" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300">
+                    Integrales
+                </a>
+            </nav>
         </div>
 
-        <!-- Contenido Integrales -->
-        <div id="integrales-content" class="tab-panel hidden">
-            <p class="text-center text-gray-500 p-8 bg-gray-50 rounded-lg">
-                <strong>Integrales:</strong> Aquí se mostrarán las fórmulas.
-            </p>
+        <!-- Contenido -->
+        <div class="mt-8">
+            <!-- Contenido Límites -->
+            <div id="limites-content" class="tab-panel slide-in">
+                <div class="empty-content">
+                    <div class="text-5xl mb-4">📄</div>
+                    <p class="font-medium">
+                        💡 Selecciona una categoría para ver las fórmulas de Cálculo correspondientes.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Contenido Derivadas -->
+            <div id="derivadas-content" class="tab-panel hidden">
+                <div class="empty-content">
+                    <div class="text-5xl mb-4">🧮</div>
+                    <p class="font-medium">
+                        💡 Selecciona una categoría para ver las fórmulas de Cálculo correspondientes.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Contenido Integrales -->
+            <div id="integrales-content" class="tab-panel hidden">
+                <div class="empty-content">
+                    <div class="text-5xl mb-4">📘</div>
+                    <p class="font-medium">
+                        💡 Selecciona una categoría para ver las fórmulas de Cálculo correspondientes.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -72,19 +170,30 @@ document.addEventListener('DOMContentLoaded', function() {
         tab.addEventListener('click', function(event) {
             event.preventDefault();
 
+            // Remover clases activas de todas las pestañas
             tabs.forEach(t => {
-                t.classList.remove('text-blue-600', 'border-blue-600');
+                t.classList.remove('active', 'text-blue-600', 'border-blue-600');
                 t.classList.add('text-gray-500', 'border-transparent');
             });
-            panels.forEach(p => p.classList.add('hidden'));
+            
+            // Ocultar todos los paneles con fade out
+            panels.forEach(p => {
+                p.classList.add('hidden');
+                p.classList.remove('slide-in');
+            });
 
-            this.classList.add('text-blue-600', 'border-blue-600');
+            // Activar la pestaña seleccionada
+            this.classList.add('active');
             this.classList.remove('text-gray-500', 'border-transparent');
 
+            // Mostrar el panel correspondiente con animación
             const targetPanelId = this.dataset.tab + '-content';
             const targetPanel = document.getElementById(targetPanelId);
             if (targetPanel) {
                 targetPanel.classList.remove('hidden');
+                // Forzar reflow para reiniciar la animación
+                void targetPanel.offsetWidth;
+                targetPanel.classList.add('slide-in');
             }
         });
     });
