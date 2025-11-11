@@ -39,29 +39,235 @@
     <div class="mt-8">
         <!-- Contenido Límites -->
         <div id="limites-content" class="tab-panel">
-            <p class="text-center text-gray-500 p-8 bg-gray-50 rounded-lg">
-                <strong>Límites:</strong> Aquí se mostrarán las fórmulas.
-            </p>
+            <div class="prose max-w-none text-gray-800">
+                <h2 class="text-2xl font-semibold mb-4">Límites</h2>
+
+                <ul class="space-y-6">
+                    <li>
+                        <strong>Suma / Resta:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to a}[f(x)\pm g(x)]=\lim_{x\to a}f(x)\pm\lim_{x\to a}g(x)$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Múltiplo constante:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to a}[c\cdot f(x)]=c\cdot\lim_{x\to a}f(x)$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Producto:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to a}[f(x)\cdot g(x)]=\lim_{x\to a}f(x)\cdot\lim_{x\to a}g(x)$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Cociente:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to a}\frac{f(x)}{g(x)}=\frac{\lim_{x\to a}f(x)}{\lim_{x\to a}g(x)}\quad(\text{si }\lim_{x\to a}g(x)\neq0)$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Potencia:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to a}[f(x)]^{n}=\left[\lim_{x\to a}f(x)\right]^{n}$$</div>
+                        </div>
+                    </li>
+                </ul>
+
+                <hr class="my-6" />
+
+                <h3 class="text-xl font-semibold mb-3">Límites especiales (indispensables)</h3>
+                <ul class="space-y-6">
+                    <li>
+                        <strong>Límite trigonométrico fundamental:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to0}\frac{\sin x}{x}=1$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Relacionado al anterior:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to0}\frac{1-\cos x}{x}=0$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Definiciones del número e:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm space-y-2">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to0}(1+x)^{1/x}=e$$</div>
+                            <div class="text-lg">$$\displaystyle\lim_{n\to\infty}\left(1+\frac{1}{n}\right)^{n}=e$$</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <!-- Contenido Derivadas -->
         <div id="derivadas-content" class="tab-panel hidden">
-            <p class="text-center text-gray-500 p-8 bg-gray-50 rounded-lg">
-                <strong>Derivadas:</strong> Aquí se mostrarán las fórmulas.
-            </p>
+            <div class="prose max-w-none text-gray-800">
+                <h2 class="text-2xl font-semibold mb-4">Derivadas</h2>
+                <p class="mb-4">Definición formal de la derivada:</p>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-lg">
+                    $$\displaystyle f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$$
+                </div>
+
+                <hr class="my-6" />
+
+                <h3 class="text-xl font-semibold mb-3">Reglas básicas de derivación</h3>
+                <ul class="space-y-4">
+                    <li>
+                        <strong>Regla de la constante:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle f(x)=c\Rightarrow f'(x)=0$$</div>
+                    </li>
+
+                    <li>
+                        <strong>Regla de la potencia:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[x^{n}]=n\,x^{n-1}$$</div>
+                    </li>
+
+                    <li>
+                        <strong>Múltiplo constante:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[c\cdot f(x)]=c\cdot f'(x)$$</div>
+                    </li>
+
+                    <li>
+                        <strong>Regla de la suma y resta:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[f(x)\pm g(x)]=f'(x)\pm g'(x)$$</div>
+                    </li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">Reglas principales (Producto, Cociente y Cadena)</h3>
+                <ul class="space-y-6">
+                    <li>
+                        <strong>Regla del producto:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[f(x)g(x)]=f'(x)g(x)+f(x)g'(x)$$</div>
+                    </li>
+
+                    <li>
+                        <strong>Regla del cociente:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\left[\frac{f(x)}{g(x)}\right]=\frac{f'(x)g(x)-f(x)g'(x)}{[g(x)]^{2}}$$</div>
+                    </li>
+
+                    <li>
+                        <strong>Regla de la cadena (para \(f(g(x))\)):</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[f(g(x))]=f'(g(x))\cdot g'(x)$$</div>
+                    </li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">Exponenciales y logarítmicas</h3>
+                <ul class="space-y-4">
+                    <li>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}e^{x}=e^{x}$$</div>
+                    </li>
+                    <li>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}a^{x}=a^{x}\ln(a)$$</div>
+                    </li>
+                    <li>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\ln x=\frac{1}{x}$$</div>
+                    </li>
+                    <li>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\log_{a}x=\frac{1}{x\ln a}$$</div>
+                    </li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">Trigonométricas</h3>
+                <ul class="space-y-3">
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\sin x=\cos x$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\cos x=-\sin x$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\tan x=\sec^{2}x$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\cot x=-\csc^{2}x$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\sec x=\sec x\tan x$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\csc x=-\csc x\cot x$$</div></li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">Trigonométricas inversas</h3>
+                <ul class="space-y-3">
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\arcsin x=\frac{1}{\sqrt{1-x^{2}}}$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\arccos x=-\frac{1}{\sqrt{1-x^{2}}}$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\arctan x=\frac{1}{1+x^{2}}$$</div></li>
+                </ul>
+            </div>
         </div>
 
         <!-- Contenido Integrales -->
         <div id="integrales-content" class="tab-panel hidden">
-            <p class="text-center text-gray-500 p-8 bg-gray-50 rounded-lg">
-                <strong>Integrales:</strong> Aquí se mostrarán las fórmulas.
-            </p>
+            <div class="prose max-w-none text-gray-800">
+                <h2 class="text-2xl font-semibold mb-4">Integrales</h2>
+                <p class="mb-3">Resumen de reglas e identidades más usadas en integración.</p>
+
+                <h3 class="text-xl font-semibold mt-4 mb-3">I. Integrales inmediatas (Básicas / Potencia)</h3>
+                <ul class="space-y-4">
+                    <li>
+                        <strong>Constante:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int k\,du = k\,u + C$$</div>
+                    </li>
+                    <li>
+                        <strong>Potencia (n \neq -1):</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int u^{n}\,du = \frac{u^{n+1}}{n+1}+C$$</div>
+                    </li>
+                    <li>
+                        <strong>Logaritmo (n = -1):</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \frac{1}{u}\,du=\ln|u|+C$$</div>
+                    </li>
+                    <li>
+                        <strong>Exponencial:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int e^{u}\,du = e^{u}+C$$</div>
+                    </li>
+                    <li>
+                        <strong>Exponencial base a:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int a^{u}\,du = \frac{a^{u}}{\ln a}+C$$</div>
+                    </li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">II. Integrales trigonométricas básicas</h3>
+                <ul class="space-y-3">
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \sin u\,du = -\cos u + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \cos u\,du = \sin u + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \tan u\,du = -\ln|\cos u| + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \cot u\,du = \ln|\sin u| + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \sec u\,du = \ln|\sec u + \tan u| + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \csc u\,du = -\ln|\csc u + \cot u| + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \sec^{2}u\,du = \tan u + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \csc^{2}u\,du = -\cot u + C$$</div></li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">III. Integración por partes</h3>
+                <p class="mb-2">Se usa para integrar productos de funciones.</p>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-lg mb-4">$$\displaystyle \int u\,dv = u\,v - \int v\,du$$</div>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">IV. Teorema Fundamental del Cálculo (TFC)</h3>
+                <p class="mb-2">Primera parte (inversa de la derivación):</p>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-lg mb-3">$$\displaystyle g(x)=\int_{a}^{x}f(t)\,dt\quad\Rightarrow\quad g'(x)=f(x)$$</div>
+                <p class="mb-2">Segunda parte (cálculo de integrales definidas):</p>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-lg">$$\displaystyle \int_{a}^{b}f(x)\,dx=F(b)-F(a)\quad\text{si }F'=f$$</div>
+
+            </div>
         </div>
     </div>
 </div>
 {% endblock contenido %}
 
 {% block extra_js %}
+<!-- Math rendering (MathJax) -->
+<script>
+window.MathJax = {
+    tex: {
+        inlineMath: [['\\(','\\)']],
+        displayMath: [['$$','$$']]
+    },
+    options: {
+        skipHtmlTags: ['script','noscript','style','textarea','pre']
+    }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+
 <!-- Lógica de Pestañas -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
