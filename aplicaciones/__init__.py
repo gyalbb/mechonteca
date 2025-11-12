@@ -1,0 +1,1 @@
+# Este archivo convierte la carpeta 'aplicaciones' en un paquete de Python.

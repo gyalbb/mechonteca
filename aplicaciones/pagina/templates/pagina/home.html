@@ -1,0 +1,42 @@
+{% extends 'pagina/base.html' %} 
+{% block title %}Inicio - USM{% endblock %}
+
+{% block content %}
+    <!-- Este es el contenido de la SECCIÓN 1: INICIO (HOME) rediseñado -->
+    <div class="content-wrapper">
+        <section id="home" class="page-content">
+            <h1 class="text-4xl font-extrabold heading-1 mb-2">Prepárate para la USM</h1>
+
+            <p class="text-2xl font-light mb-8 mt-2 italic pl-4" style="border-left:4px solid var(--hover-accent);">
+                "La excelencia de tu futuro comienza con la base de hoy."
+            </p>
+
+            <p class="text-xl muted mb-8">Diagnóstico preciso y materiales colaborativos para nivelar tus conocimientos en ciencia y tecnología.</p>
+
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="card">
+                    <div class="text-4xl mb-3">🧠</div>
+                    <h3 class="font-semibold text-lg mb-2">Diagnóstico Preciso</h3>
+                    <p class="muted text-sm">Identifica tus debilidades en temas específicos de Álgebra y Cálculo.</p>
+                </div>
+                <div class="card">
+                    <div class="text-4xl mb-3">📚</div>
+                    <h3 class="font-semibold text-lg mb-2">Material UGC</h3>
+                    <p class="muted text-sm">Accede a apuntes, certámenes y controles compartidos por estudiantes USM.</p>
+                </div>
+                <div class="card">
+                    <div class="text-4xl mb-3">🚀</div>
+                    <h3 class="font-semibold text-lg mb-2">Ruta de Estudio</h3>
+                    <p class="muted text-sm">Sigue tu progreso modular (tipo Algor) y enfócate en lo que importa.</p>
+                </div>
+            </div>
+
+            <div class="mt-10 text-center">
+                <!-- Botón para comenzar -->
+                <a href="{% url 'dashboard' %}" class="btn-primary">
+                    Comenzar nivelación
+                </a>
+            </div>
+        </section>
+    </div>
+{% endblock %}

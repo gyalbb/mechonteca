@@ -1,0 +1,169 @@
+{% extends 'aplicaciones/base.html' %}
+{% block title %}Mi Cuenta{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Fondo degradado consistente con Dashboard */
+    .mi-cuenta-container {
+        background: linear-gradient(180deg, #f8fafc 0%, #e0f2fe 100%);
+        min-height: calc(100vh - 200px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1rem;
+        animation: fadeIn 0.6s ease-in-out;
+    }
+    
+    /* Animación fade-in de entrada */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Tarjeta de cuenta mejorada */
+    .cuenta-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 3rem 2.5rem;
+        max-width: 500px;
+        width: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(37, 99, 235, 0.1);
+        position: relative;
+    }
+    
+    .cuenta-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(37, 99, 235, 0.2);
+    }
+    
+    /* Avatar circular */
+    .avatar-circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .avatar-icon {
+        width: 55px;
+        height: 55px;
+        stroke: white;
+        stroke-width: 2;
+    }
+    
+    /* Botón cerrar sesión mejorado */
+    .btn-logout {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white;
+        font-weight: 600;
+        padding: 0.875rem 1.5rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-family: 'Poppins', 'Inter', sans-serif;
+    }
+    
+    .btn-logout:hover {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+    }
+    
+    /* Línea divisoria */
+    .divider {
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent);
+        margin: 1.5rem 0;
+    }
+    
+    /* Ícono título */
+    .title-icon {
+        display: inline-block;
+        margin-right: 0.5rem;
+        color: #2563eb;
+    }
+    
+    /* Botón volver mejorado */
+    .btn-back {
+        position: absolute;
+        top: 1.5rem;
+        left: 1.5rem;
+        color: #9ca3af;
+        transition: all 0.2s ease;
+    }
+    
+    .btn-back:hover {
+        color: #4b5563;
+        transform: translateX(-3px);
+    }
+</style>
+{% endblock extra_css %}
+
+{% block contenido %}
+<div class="mi-cuenta-container">
+    <div class="cuenta-card">
+        <!-- Botón volver -->
+        <a href="{% url 'index' %}" class="btn-back" title="Volver al inicio">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </a>
+        
+        <!-- Avatar circular -->
+        <div class="avatar-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="avatar-icon">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <!-- Título con ícono -->
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-3 text-center" style="font-family: 'Poppins', 'Inter', sans-serif;">
+            <i class="fa-solid fa-user title-icon"></i>Mi Cuenta
+        </h1>
+        
+        <!-- Nombre del usuario dinámico -->
+        <p class="text-2xl font-bold text-gray-900 mb-1 text-center" style="font-family: 'Poppins', 'Inter', sans-serif;">{{ user.username }}</p>
+        
+        <!-- Texto secundario -->
+        <p class="text-sm text-gray-500 mb-4 text-center" style="font-family: 'Inter', sans-serif;">Miembro de la comunidad Mechonteca UTFSM</p>
+        
+        <!-- Línea divisoria -->
+        <div class="divider"></div>
+        
+        <!-- Email o info adicional (si está disponible) -->
+        {% if user.email %}
+        <p class="text-base text-gray-600 mb-6 text-center" style="font-family: 'Inter', sans-serif;">
+            <i class="fa-solid fa-envelope" style="margin-right: 0.4rem; font-size: 0.9rem; color: #2563eb;"></i>{{ user.email }}
+        </p>
+        {% endif %}
+        
+        <!-- Botón cerrar sesión -->
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Cerrar Sesión
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock contenido %}

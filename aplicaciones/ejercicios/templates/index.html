@@ -1,0 +1,52 @@
+{% extends 'aplicaciones/base.html' %}
+
+{% block title %}Centro de Ejercicios{% endblock %}
+
+{% block contenido %}
+<div class="relative max-w-4xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
+    <!-- Botón Volver -->
+    <a href="{% url 'dashboard:dashboard_view' %}" class="absolute top-0 left-0 text-gray-400 hover:text-gray-600 transition-colors" title="Volver al Dashboard">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
+
+    <h1 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">Centro de Ejercicios</h1>
+
+    <div class="grid md:grid-cols-2 gap-8">
+        <!-- Card para Crear Prueba -->
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Crear Nueva Prueba</h2>
+            <form action="{% url 'ejercicios:crear_prueba' %}" method="post" class="space-y-6">
+                {% csrf_token %}
+                <div>
+                    <label for="username-crear" class="block text-gray-700 font-bold mb-2">Nombre de usuario:</label>
+                    <input type="text" id="username-crear" name="username" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <div>
+                    <label for="topicos" class="block text-gray-700 font-bold mb-2">Selecciona tópicos (opcional):</label>
+                    <p class="text-sm text-gray-500 mb-2">Mantén 'Ctrl' o 'Cmd' para seleccionar varios. Si no seleccionas, se incluirán todos.</p>
+                    <select id="topicos" name="topicos" multiple size="5" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                        {% for topico in topicos %}
+                        <option value="{{ topico }}">{{ topico }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn-usm-primary w-full py-3 font-bold rounded-lg text-lg">Crear Prueba</button>
+            </form>
+        </div>
+
+        <!-- Card para Ver Pruebas -->
+        <div class="bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Ver Pruebas Guardadas</h2>
+            <form action="{% url 'ejercicios:lista_pruebas' %}" method="get" class="space-y-6">
+                <div>
+                    <label for="username-ver" class="block text-gray-700 font-bold mb-2">Nombre de usuario:</label>
+                    <input type="text" id="username-ver" name="username" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>
+                </div>
+                <button type="submit" class="btn-secundario w-full py-3 font-bold rounded-lg text-lg">Buscar Pruebas</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}
