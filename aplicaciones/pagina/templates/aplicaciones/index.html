@@ -43,6 +43,10 @@
         box-shadow: 0 6px 14px rgba(2, 132, 199, 0.15);
         border: 4px solid #38bdf8; /* celeste USM */
     }
+    /* Wrapper that holds the circular border and crops the image inside for a gentle zoom */
+    .team-avatar-wrap { display: inline-block; width: 8rem; height: 8rem; border-radius: 9999px; overflow: hidden; box-shadow: 0 6px 14px rgba(2, 132, 199, 0.15); border: 4px solid #38bdf8; }
+    .team-avatar-img { display: block; width: 120%; height: 120%; object-fit: cover; transform: translate(-10%, -10%) scale(1.0); transition: transform .35s ease; }
+    .team-avatar-wrap:hover .team-avatar-img { transform: translate(-10%, -10%) scale(1.04); }
     .team-name { margin-top: 12px; font-weight: 800; color: #0f172a; font-size: 1.25rem; }
     .team-role { color: #1d4ed8; font-weight: 600; font-size: .925rem; }
     .team-desc { margin-top: 10px; color: #475569; font-size: .95rem; line-height: 1.5; }
@@ -164,74 +168,65 @@
         <h2 class="text-4xl font-extrabold text-gray-800 mb-8 text-center">Conoce a Nuestro Equipo</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 team-grid text-center">
-            <!-- Integrante destacado: Ángela Ibacache -->
+            <!-- Ángela Ibacache -->
             <div class="team-card fade-card">
-                <img 
-                    src="{% static 'img/just_like_me_fr.jpg' %}"
-                    alt="Ángela Ibacache"
-                    class="team-avatar cursor-pointer"
-                    data-target="#desc-angela"
-                />
+                <div class="team-avatar team-avatar-wrap cursor-pointer" data-target="#desc-angela">
+                    <img src="{% static 'img/just_like_me_fr.jpg' %}" alt="Ángela Ibacache" class="team-avatar-img" />
+                </div>
                 <h3 class="team-name cursor-pointer" data-target="#desc-angela">Ángela Ibacache</h3>
-                <p class="team-role">Diseño y Estructura</p>
+                <p class="team-role">Desarrollo Frontend</p>
                 <div id="desc-angela" class="member-description desc-collapsible mt-4 p-4 text-sm text-gray-600">
-                    Diseñadora visual del proyecto, encargada de la identidad estética de Mechonteca, la coherencia gráfica entre sus páginas y la revisión de estructuras de contenido y componentes.
+                    Encargada del desarrollo de la interfaz y diseño visual de la plataforma, enfocándose en la experiencia de usuario y coherencia estética de Mechonteca.
                 </div>
             </div>
 
-            {% for integrante in equipo %}
-            {% if integrante.nombre != 'Ángela Ibacache' and integrante.nombre != 'Angela Ibacache' %}
-              <div class="team-card fade-card">
-                  <!-- Imagen Clickeable conserva el toggle -->
-                                    {% if integrante.nombre == 'Nombre Integrante 2' %}
-                    <img 
-                        src="{% static 'img/unnamed.jpg' %}"
-                        alt="Manuel Serfaty"
-                        class="member-avatar team-avatar cursor-pointer"
-                        data-target="#desc-{{ integrante.id }}"
-                    />
-                                    {% elif integrante.nombre == 'Nombre Integrante 3' %}
-                    <img 
-                        src="{% static 'img/0.jpg' %}"
-                        alt="{{ integrante.nombre }}"
-                        class="member-avatar team-avatar cursor-pointer"
-                        data-target="#desc-{{ integrante.id }}"
-                    />
-                                    {% else %}
-                                        <img 
-                                                src="{% static integrante.imagen %}"
-                                                alt="Foto de {{ integrante.nombre }}"
-                                                class="member-avatar team-avatar cursor-pointer"
-                                                data-target="#desc-{{ integrante.id }}"
-                                        />
-                                    {% endif %}
-                  <h3 class="team-name cursor-pointer" data-target="#desc-{{ integrante.id }}">
-                      {% if integrante.nombre == 'Nombre Integrante 2' %}
-                          Manuel Serfaty
-                      {% elif integrante.nombre == 'Nombre Integrante 3' %}
-                          Yerko Pasten
-                      {% elif integrante.nombre == 'Nombre Integrante 4' %}
-                          Anakin Camara
-                      {% elif integrante.nombre == 'Nombre Integrante 5' %}
-                          Sebastian Zamora
-                      {% else %}
-                          {{ integrante.nombre }}
-                      {% endif %}
-                  </h3>
-                  <p class="team-role">
-                      {% if integrante.nombre == 'Nombre Integrante 2' %}Líder{% else %}{{ integrante.rol }}{% endif %}
-                  </p>
-                  <!-- Descripción Oculta (toggle) -->
-                                    <div id="desc-{{ integrante.id }}" class="member-description desc-collapsible mt-4 p-4 text-sm text-gray-600">
-                                            {% if integrante.nombre == 'Nombre Integrante 2' %}
-                                                Líder del equipo, encargado de las funcionalidades principales del backend de la plataforma Mechonteca, incluyendo el sistema de diagnóstico y los formularios interactivos.
-                                            {% else %}
-                                                {{ integrante.descripcion }}
-                                            {% endif %}
-                                    </div>
-              </div>
-            {% endif %}
-            {% endfor %}
+            <!-- Manuel Serfaty -->
+            <div class="team-card fade-card">
+                <div class="team-avatar team-avatar-wrap cursor-pointer" data-target="#desc-manuel">
+                    <img src="{% static 'img/unnamed.jpg' %}" alt="Manuel Serfaty" class="team-avatar-img" />
+                </div>
+                <h3 class="team-name cursor-pointer" data-target="#desc-manuel">Manuel Serfaty</h3>
+                <p class="team-role">Líder de Proyecto</p>
+                <div id="desc-manuel" class="member-description desc-collapsible mt-4 p-4 text-sm text-gray-600">
+                    Coordinador general del equipo, supervisando el avance de cada módulo y la integración de componentes dentro del sistema.
+                </div>
+            </div>
+
+            <!-- Yerko Pasten -->
+            <div class="team-card fade-card">
+                <div class="team-avatar team-avatar-wrap cursor-pointer" data-target="#desc-yerko">
+                    <img src="{% static 'img/0.jpg' %}" alt="Yerko Pasten" class="team-avatar-img" />
+                </div>
+                <h3 class="team-name cursor-pointer" data-target="#desc-yerko">Yerko Pasten</h3>
+                <p class="team-role">Desarrollo Backend</p>
+                <div id="desc-yerko" class="member-description desc-collapsible mt-4 p-4 text-sm text-gray-600">
+                    Responsable de la lógica interna y conexión del servidor con las funcionalidades principales, incluyendo la gestión de datos y generación de pruebas.
+                </div>
+            </div>
+
+            <!-- Anakin Camara -->
+            <div class="team-card fade-card">
+                <div class="team-avatar team-avatar-wrap cursor-pointer" data-target="#desc-anakin">
+                    <img src="{% static 'img/anakin.jpg' %}" alt="Anakin Camara" class="team-avatar-img" />
+                </div>
+                <h3 class="team-name cursor-pointer" data-target="#desc-anakin">Anakin Camara</h3>
+                <p class="team-role">Desarrollo de la App de Ejercicios</p>
+                <div id="desc-anakin" class="member-description desc-collapsible mt-4 p-4 text-sm text-gray-600">
+                    Diseñó y programó el módulo de ejercicios, permitiendo la creación, visualización y corrección automática de pruebas dentro de la plataforma.
+                </div>
+            </div>
+
+            <!-- Sebastián Zamora -->
+            <div class="team-card fade-card">
+                <div class="team-avatar team-avatar-wrap cursor-pointer" data-target="#desc-sebastian">
+                    <img src="{% static 'img/seba.jpg' %}" alt="Sebastián Zamora" class="team-avatar-img" />
+                </div>
+                <h3 class="team-name cursor-pointer" data-target="#desc-sebastian">Sebastián Zamora</h3>
+                <p class="team-role">Sistema de Autenticación y Usuarios</p>
+                <div id="desc-sebastian" class="member-description desc-collapsible mt-4 p-4 text-sm text-gray-600">
+                    Encargado del desarrollo del login y registro, gestionando la seguridad y el acceso de los usuarios al sistema.
+                </div>
+            </div>
         </div>
     </section>
 {% endblock contenido %}

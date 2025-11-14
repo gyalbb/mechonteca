@@ -6,11 +6,30 @@ import random
 def index(request):
     topicos = Ejercicios.objects.values_list('topico', flat=True).distinct().order_by('topico')
 
+    # Also prepare a small preview sample of ejercicios to show on the page
+    ejercicios_qs = list(Ejercicios.objects.all())
+    muestra = []
+    if ejercicios_qs:
+        import random as _random
+        cantidad = min(6, len(ejercicios_qs))
+        seleccionados = _random.sample(ejercicios_qs, cantidad)
+        for sel in seleccionados:
+            item = {
+                'enunciado': sel.enunciado,
+                'topico': sel.topico,
+                'ejercicio': sel.ejercicio,
+                'alternativas': [sel.respuesta_correcta, sel.alternativa1, sel.alternativa2]
+            }
+            _random.shuffle(item['alternativas'])
+            muestra.append(item)
+
     contexto = {
-        'topicos': topicos
+        'topicos': topicos,
+        'ejercicios_preview': muestra,
     }
 
-    return render(request, 'index.html', contexto)
+    # Render the redesigned ejercicios page to match Dashboard aesthetics
+    return render(request, 'ejercicios.html', contexto)
     
 
 # Create your views here.
@@ -80,6 +99,14 @@ def crear_prueba(request):
 def obtener_prueba(request):
     prueba_id = request.GET.get('id')
     prueba = get_object_or_404(Pruebas, id=prueba_id)
+    # Determine if we're in review mode: either the prueba is already completed
+    # or an explicit review mode flag is provided in the querystring
+    modo_revision = False
+    if prueba.completada:
+        modo_revision = True
+    # allow forcing review mode via ?modo_revision=1
+    if request.GET.get('modo_revision') in ['1', 'true', 'True']:
+        modo_revision = True
     preguntas = Preguntas.objects.filter(prueba=prueba).select_related('ejercicio').order_by('num_pregunta')
     preguntas_template = list()
     for pregunta in preguntas:
@@ -98,6 +125,7 @@ def obtener_prueba(request):
     contexto = {
         'prueba': prueba,
         'preguntas': preguntas_template,
+        'modo_revision': modo_revision,
     }
     return render(request, 'crear-prueba.html', contexto)
 
@@ -133,8 +161,27 @@ def guardar_prueba(request):
         
     prueba.save()
 
+    # Preparar datos detallados para revisión
+    preguntas = Preguntas.objects.filter(prueba=prueba).select_related('ejercicio').order_by('num_pregunta')
+    preguntas_template = list()
+    for pregunta in preguntas:
+        alternativas = Alternativas.objects.filter(pregunta=pregunta).order_by('orden').values('formula','orden','seleccionada')
+        preguntas_template.append({
+            'id': pregunta.id,
+            'respondida': pregunta.respuesta != None,
+            'enunciado': pregunta.ejercicio.enunciado,
+            'ejercicio': pregunta.ejercicio.ejercicio,
+            'num_pregunta': pregunta.num_pregunta,
+            'alternativas': list(alternativas),
+            'topico': pregunta.ejercicio.topico,
+            'respuesta_correcta': pregunta.ejercicio.respuesta_correcta,
+            'respuesta_usuario': pregunta.respuesta,
+            'es_correcta': pregunta.es_correcta,
+        })
+
     contexto = {
         'prueba': prueba,
+        'preguntas': preguntas_template,
     }
 
     return render(request, 'resultados.html', contexto)
