@@ -1,35 +1,132 @@
-<head>
+{% extends 'aplicaciones/base.html' %}
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% block title %}Ejercicios{% endblock title %}
 
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['##', '##'], ['\\[', '\\]']],
-                processEscapes: true,
-                processEnvironments: true
-            },
-            options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-            }
-        };
-    </script>
-</head>
-<body>
-<h1>jrecicios</h1>
-{% for ejercicio in ejercicios %}
-<div>
-<h1>{{ forloop.counter }}. Ejercicio de {{ejercicio.topico}}: 
-{{ ejercicio.enunciado }}
-<h1>
-##{{ejercicio.ejercicio}}##
-</h1>
-{% for alternativa in ejercicio.alternativas %}
-<h1>Alternativa {{ forloop.counter }} :
-##{{alternativa}}##
-{% endfor %}
-</h1>
-{% endfor %}
-</body>
+{% block extra_css %}
+<style>
+    /* Ajustes menores para inputs en la sección ejercicios */
+    .input-blue {
+        border: 1px solid rgba(59,130,246,0.25);
+        box-shadow: 0 1px 3px rgba(59,130,246,0.06);
+    }
+
+    .card-rounded {
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 6px 20px rgba(15,23,42,0.06);
+        border: 1px solid rgba(43,87,151,0.06);
+    }
+
+    .small-card {
+        border-radius: 10px;
+        background: #FAFBFF;
+        box-shadow: 0 4px 12px rgba(15,23,42,0.04);
+        border: 1px solid rgba(43,87,151,0.04);
+    }
+
+    .placeholder-soft::placeholder {
+        color: #9CA3AF;
+        opacity: 1;
+    }
+
+</style>
+{% endblock extra_css %}
+
+{% block contenido %}
+
+<div class="main-container">
+    <h1 class="hero-title">Ejercicios</h1>
+
+    <div class="space-y-6">
+        <!-- Crear Prueba -->
+        <section class="card-rounded p-6 page-content">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-2xl font-semibold text-gray-800" style="font-family: 'Poppins', sans-serif;"><i class="fa-solid fa-pencil mr-3 text-blue-600"></i>Crear Prueba</h2>
+                <p class="text-sm text-gray-600">Selecciona temas y crea una prueba personalizada.</p>
+            </div>
+
+            <form method="post" action="{% url 'ejercicios:crear-prueba' %}" class="space-y-4">
+                {% csrf_token %}
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
+                        <input name="username" type="text" placeholder="Ingresa tu usuario" class="w-full px-4 py-2 rounded-lg input-blue placeholder-soft focus:outline-none focus:ring-2 focus:ring-sky-400" />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Temas (topicos)</label>
+                        <select name="topicos" multiple class="w-full px-4 py-2 rounded-lg input-blue placeholder-soft focus:outline-none focus:ring-2 focus:ring-sky-400 h-32">
+                            {% for topico in topicos %}
+                                <option value="{{ topico }}">{{ topico }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="text-xs text-gray-500 mt-1">Mantén presionado Ctrl/Cmd para seleccionar varios.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end">
+                    <button type="submit" class="btn-usm-primary px-6 py-2 rounded-md text-white font-semibold">
+                        <i class="fa-solid fa-flask mr-2"></i> Generar Prueba
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Ver Pruebas por Usuario -->
+        <section class="small-card p-4">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-lg font-medium text-gray-800" style="font-family: 'Poppins', sans-serif;"><i class="fa-solid fa-magnifying-glass mr-2 text-blue-600"></i>Ver Pruebas por Usuario</h3>
+                <p class="text-xs text-gray-500">Busca por nombre de usuario</p>
+            </div>
+
+            <form method="get" action="{% url 'ejercicios:lista-pruebas' %}" class="flex gap-3 items-center">
+                <input name="username" type="text" placeholder="Usuario (ej: juan)" class="flex-1 px-3 py-2 rounded-md border input-blue placeholder-soft focus:outline-none focus:ring-2 focus:ring-sky-400" />
+                <button type="submit" class="btn-usm-primary px-4 py-2 rounded-md text-white font-semibold">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </section>
+
+    </div>
+</div>
+
+{% if ejercicios_preview %}
+<div class="main-container mt-6">
+    <div class="card-rounded p-6">
+        <h2 class="text-xl font-semibold mb-4" style="font-family: 'Poppins', sans-serif;">Ejercicios de ejemplo</h2>
+        <div class="space-y-4">
+            {% for ejercicio in ejercicios_preview %}
+                <div class="border rounded-md p-4">
+                    <div class="font-medium text-gray-800">Tópico: {{ ejercicio.topico }}</div>
+                    {% if ejercicio.enunciado %}
+                        <div class="mt-2 text-gray-700">{{ ejercicio.enunciado|safe }}</div>
+                    {% elif ejercicio.ejercicio %}
+                        <div class="mt-2 text-gray-700"><span class="math-block">${{ ejercicio.ejercicio|safe }}$</span></div>
+                    {% endif %}
+                    <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3">
+                        {% for alternativa in ejercicio.alternativas %}
+                            <div class="p-3 rounded-md bg-gray-50">
+                                <div class="math-block">${{ alternativa|safe }}$</div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock contenido %}
+
+{% block extra_js %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+    window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+        options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+</script>
+{% endblock extra_js %}

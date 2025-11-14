@@ -1,51 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <section>
-        <h1>Pruebas por Usuario</h1>
-        <div>
-            <table>
+{% extends 'aplicaciones/base.html' %}
+
+{% block title %}Lista de Pruebas{% endblock title %}
+
+{% block extra_css %}
+<style>
+    .table-card { border-radius: 10px; background: #fff; box-shadow: 0 6px 18px rgba(15,23,42,0.06); padding: 16px; border: 1px solid rgba(43,87,151,0.06); }
+    table th, table td { padding: 12px 10px; }
+    .small-badge { background: rgba(43,87,151,0.08); color: #1E293B; padding: 4px 8px; border-radius: 999px; font-size: .85rem }
+</style>
+{% endblock extra_css %}
+
+{% block contenido %}
+
+<div class="main-container">
+    <div class="table-card">
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-2xl font-semibold" style="font-family: 'Poppins', sans-serif;">Pruebas por Usuario</h1>
+            <p class="text-sm text-gray-600">Resultados para la búsqueda</p>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full table-auto text-left">
                 <thead>
-                    <tr>
-                        <th>Prueba ID</th>
+                    <tr class="text-sm text-gray-600">
+                        <th>Prueba</th>
                         <th>Usuario</th>
-                        <th>Fecha Creación</th>
-                        <th>Fecha Completada</th>
+                        <th>Creación</th>
                         <th>Completada</th>
-                        <th>Cantidad Preguntas</th>
-                        <th>Cantidad Correctas</th>
-                        <th>Cantidad Incorrectas</th>
-                        <th>Porcentaje de acierto</th>
+                        <th>Preguntas</th>
+                        <th>Correctas</th>
+                        <th>% Acierto</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for prueba in pruebas %}
-                    <tr>
-                        <td>{{ prueba.id }}</td>
-                        <td>{{ prueba.usuario }}</td>
-                        <td>{{ prueba.fecha_creacion }}</td>
-                        <td>{{ prueba.fecha_completada }}</td>
-                        <td>{{ prueba.completada }}</td>
-                        <td>{{ prueba.cantidad_preguntas }}</td>
-                        <td>{{ prueba.correctas }}</td>
-                        <td>{{ prueba.incorrectas }}</td>
-                        <td>{% widthratio prueba.correctas prueba.cantidad_preguntas 100 %}%</td>
-                        <td>
-                            <a href="{% url 'ejercicios:obtener-prueba' %}?id={{ prueba.id }}">
-                                <button type="button">Ver Prueba</button>
-                            </a>
-                        </td>
-                    </tr>
+                        <tr class="border-t">
+                            <td class="py-3">#{{ prueba.id }}</td>
+                            <td class="py-3">{{ prueba.usuario }}</td>
+                            <td class="py-3">{{ prueba.fecha_creacion }}</td>
+                            <td class="py-3">{% if prueba.completada %}<span class="small-badge">Sí</span>{% else %}<span class="small-badge">No</span>{% endif %}</td>
+                            <td class="py-3">{{ prueba.cantidad_preguntas }}</td>
+                            <td class="py-3">{{ prueba.correctas }}</td>
+                            <td class="py-3">{% if prueba.cantidad_preguntas > 0 %}{% widthratio prueba.correctas prueba.cantidad_preguntas 100 %}%{% else %}0%{% endif %}</td>
+                            <td class="py-3">
+                                <a href="{% url 'ejercicios:obtener-prueba' %}?id={{ prueba.id }}" class="inline-block btn-usm-primary px-3 py-1 rounded-md text-white"><i class="fa-solid fa-eye mr-2"></i>Ver</a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="8" class="py-6 text-center text-gray-500">No se encontraron pruebas para este usuario.</td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-    </section>
-</body>
-</html>
+    </div>
+</div>
+
+{% endblock contenido %}

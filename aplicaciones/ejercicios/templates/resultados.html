@@ -1,31 +1,185 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        Id de la prueba: {{ prueba.id }}
+{% extends 'aplicaciones/base.html' %}
+
+{% block title %}Resultados - Prueba #{{ prueba.id }}{% endblock title %}
+
+{% block extra_css %}
+<style>
+    .results-card { border-radius: 12px; background: #fff; box-shadow: 0 8px 24px rgba(2,6,23,0.06); padding: 24px; border: 1px solid rgba(43,87,151,0.06); }
+    .progress-bar { height: 14px; border-radius: 999px; background: rgba(15,23,42,0.06); overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg,#34D399,#60A5FA); width: 0%; transition: width 900ms cubic-bezier(.2,.9,.3,1); }
+    .stat { font-size: 1.25rem; font-weight: 600; }
+    .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; margin-left: 10px; }
+    .badge-approved { background: linear-gradient(90deg,#D1FAE5,#34D399); color: #065f46; box-shadow: 0 4px 12px rgba(52,211,153,0.12); transform: translateY(-2px); }
+    .badge-failed { background: linear-gradient(90deg,#FEE2E2,#F87171); color: #7f1d1d; box-shadow: 0 4px 12px rgba(248,113,113,0.08); transform: translateY(-2px); }
+    .badge-anim { transform-origin: center; transition: transform 400ms ease, opacity 400ms ease; opacity: 0; }
+    .badge-anim.show { transform: scale(1); opacity: 1; }
+    .alt-correct { background: rgba(16,185,129,0.12); border-left: 4px solid #10B981; }
+    .alt-wrong { background: rgba(239,68,68,0.08); border-left: 4px solid #EF4444; }
+    .alt-neutral { background: rgba(15,23,42,0.03); }
+    .review-card { margin-top: 20px; border-radius: 12px; padding: 16px; background: #fff; box-shadow: 0 6px 18px rgba(2,6,23,0.04); }
+    .question-toggle { cursor: pointer; }
+</style>
+{% endblock extra_css %}
+
+{% block contenido %}
+
+<div class="main-container">
+    <div class="results-card">
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h1 class="text-2xl font-bold" style="font-family: 'Poppins', sans-serif;">Resultados - Prueba #{{ prueba.id }}</h1>
+                <p class="text-sm text-gray-600">Creada: {{ prueba.fecha_creacion }} · Completada: {{ prueba.fecha_completada }}</p>
+            </div>
+                        <div class="text-right">
+                                <div class="flex items-center justify-end">
+                                    <div class="stat text-blue-600">{% if prueba.cantidad_preguntas > 0 %}{% widthratio prueba.correctas prueba.cantidad_preguntas 100 %}%{% else %}0%{% endif %}</div>
+                                    <span id="result-badge" class="badge badge-anim" aria-hidden="true"></span>
+                                </div>
+                                <div id="percent-block" class="mt-2 text-sm" style="color: #333; font-weight: 600;">
+                                    <span id="percent-icon" class="mr-2">📊</span>
+                                    <span id="percent-dot" class="inline-block w-3 h-3 rounded-full mr-2" style="vertical-align:middle;"></span>
+                                    <span id="percent-text">Porcentaje de acierto</span>
+                                </div>
+                        </div>
+        </div>
+
+        <div class="mb-4">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill" data-target="{% if prueba.cantidad_preguntas > 0 %}{% widthratio prueba.correctas prueba.cantidad_preguntas 100 %}{% else %}0{% endif %}"></div>
+                </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <div class="text-sm text-gray-600">Correctas</div>
+                <div class="text-xl font-semibold">{{ prueba.correctas }}</div>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <div class="text-sm text-gray-600">Incorrectas</div>
+                <div class="text-xl font-semibold">{{ prueba.incorrectas }}</div>
+            </div>
+            <div class="p-4 bg-gray-50 rounded-lg">
+                <div class="text-sm text-gray-600">Preguntas</div>
+                <div class="text-xl font-semibold">{{ prueba.cantidad_preguntas }}</div>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <a href="{% url 'ejercicios:index' %}" class="btn-usm-primary px-4 py-2 rounded-md text-white"><i class="fa-solid fa-arrow-left mr-2"></i>Volver a Ejercicios</a>
+            <a href="{% url 'ejercicios:lista-pruebas' %}?username={{ prueba.usuario }}" class="px-4 py-2 rounded-md border text-gray-700">Ver otras pruebas</a>
+        </div>
     </div>
-    <div>
-        Fecha de creación: {{ prueba.fecha_creacion }}
-    </div>
-    <div>
-        Fecha en que fue completada: {{ prueba.fecha_completada }}
-    </div>
-    <div>
-        Correctas: {{ prueba.correctas }}
-    </div>
-    <div>
-        Incorrectas: {{ prueba.incorrectas }}
-    </div>
-    <div>
-        Completada: {{ prueba.completada }}
-    </div>
-    <div>
-        Porcentaje de acierto: {% widthratio prueba.correctas prueba.cantidad_preguntas 100 %}%
-    </div>
-</body>
-</html>
+</div>
+
+        {% if preguntas %}
+        <div class="review-card">
+            <h2 class="text-xl font-semibold mb-3" style="font-family: 'Poppins', sans-serif;">Revisión detallada</h2>
+
+            <div class="space-y-4">
+                {% for pregunta in preguntas %}
+                    <div class="border rounded-md">
+                        <div class="px-4 py-3 flex items-center justify-between question-toggle" data-target="#q-{{ pregunta.id }}">
+                            <div>
+                                <div class="text-sm text-gray-500">Pregunta {{ pregunta.num_pregunta }} · {{ pregunta.topico }}</div>
+                                                <div class="font-medium" style="font-family: 'Poppins', sans-serif;">
+                                                    {% if pregunta.enunciado %}
+                                                        {{ pregunta.enunciado|safe }}
+                                                    {% elif pregunta.ejercicio %}
+                                                        <span class="math-block">${{ pregunta.ejercicio|safe }}$</span>
+                                                    {% endif %}
+                                                </div>
+                            </div>
+                            <div class="text-right">
+                                {% if pregunta.es_correcta %}
+                                    <span class="text-sm font-semibold text-green-600">Correcta</span>
+                                {% else %}
+                                    <span class="text-sm font-semibold text-red-600">Incorrecta</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div id="q-{{ pregunta.id }}" class="px-4 pb-4 hidden">
+                            <div class="mt-2 grid gap-2">
+                                {% for alternativa in pregunta.alternativas %}
+                                    {% if alternativa.formula == pregunta.respuesta_correcta %}
+                                        <div class="p-3 rounded-md alt-correct">
+                                            <div class="flex items-center gap-3">
+                                                <i class="fa-solid fa-check text-green-600"></i>
+                                                <div class="math-block">${{ alternativa.formula|safe }}$</div>
+                                                <div class="text-sm text-gray-500 ml-auto">Respuesta correcta</div>
+                                            </div>
+                                        </div>
+                                    {% elif alternativa.formula == pregunta.respuesta_usuario %}
+                                        <div class="p-3 rounded-md alt-wrong">
+                                            <div class="flex items-center gap-3">
+                                                <i class="fa-solid fa-xmark text-red-600"></i>
+                                                <div class="math-block">${{ alternativa.formula|safe }}$</div>
+                                                <div class="text-sm text-gray-500 ml-auto">Tu respuesta</div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="p-3 rounded-md alt-neutral">
+                                            <div class="flex items-center gap-3">
+                                                <i class="fa-regular fa-circle text-gray-400"></i>
+                                                <div class="math-block">${{ alternativa.formula|safe }}$</div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+{% endblock contenido %}
+
+{% block extra_js %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+    window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+        options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+
+    document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('.question-toggle').forEach(function(btn){
+            btn.addEventListener('click', function(){
+                var target = document.querySelector(btn.getAttribute('data-target'));
+                if (!target) return;
+                target.classList.toggle('hidden');
+            });
+        });
+        // Animate progress bar and show badge
+        var fill = document.getElementById('progress-fill');
+        var badge = document.getElementById('result-badge');
+        if (fill) {
+            var target = parseInt(fill.getAttribute('data-target') || '0', 10);
+            // small timeout to allow CSS to apply
+            setTimeout(function(){
+                fill.style.width = target + '%';
+            }, 120);
+            // show badge after animation and color the percent dot
+            setTimeout(function(){
+                if (!badge) return;
+                var dot = document.getElementById('percent-dot');
+                if (target >= 60) {
+                    badge.textContent = 'Aprobado';
+                    badge.classList.add('badge-approved');
+                    if (dot) dot.style.backgroundColor = '#10B981';
+                } else {
+                    badge.textContent = 'Reprobado';
+                    badge.classList.add('badge-failed');
+                    if (dot) dot.style.backgroundColor = '#EF4444';
+                }
+                badge.classList.add('show');
+                // reveal the colored dot (in case it was hidden)
+                if (dot) dot.style.opacity = 1;
+            }, 400);
+        }
+    });
+</script>
+{% endblock extra_js %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 import random
 from aplicaciones.recursos.models import Asignatura, Nivel
@@ -74,3 +74,9 @@ def formulas_view(request):
         'titulo_pagina': 'Formulario de Cálculo',
     }
     return render(request, 'dashboard/formulas.html', contexto)
+
+
+@login_required(login_url='login')
+def ejercitar_view(request):
+    """Redirige a la app de ejercicios (índice)."""
+    return redirect('ejercicios:index')

@@ -12,6 +12,7 @@ urlpatterns = [
 
     # Rutas de la aplicación principal 'pagina'
     path('', pagina_views.index, name='index'),
+    path('equipo/', pagina_views.index, name='equipo'),
     path('signup/', pagina_views.signup, name='signup'),
     path('mi-cuenta/', pagina_views.mi_cuenta, name='mi_cuenta'),
     path('ajustes/', pagina_views.ajustes_view, name='ajustes'),

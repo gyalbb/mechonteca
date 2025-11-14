@@ -2,6 +2,73 @@
 
 {% block title %}{{ titulo_pagina }}{% endblock %}
 
+{% block extra_css %}
+<style>
+    /* Make formula blocks blend with background: remove solid bg, border and shadow */
+    .tab-panel .prose .bg-white,
+    .tab-panel .prose .rounded-lg,
+    .tab-panel .prose .shadow-sm {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 8px !important;
+    }
+
+    /* Grid layout for formula blocks: two columns on wide screens, responsive to 1 column on small screens */
+    /* Grid container for formulas: explicit class to control layout */
+    .tab-panel .prose .formulas-container {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px !important;
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1rem 0;
+        justify-items: center; /* center items horizontally in each cell */
+        align-items: start;    /* align items at the top vertically */
+    }
+
+    /* Responsive: single column under 768px */
+    @media (max-width: 768px) {
+        .tab-panel .prose .formulas-container {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Each list item becomes a clean card without strong border or shadow */
+    .tab-panel .prose .formulas-container li,
+    .tab-panel .prose ul li {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 12px 20px !important;
+        margin: 0 !important;
+        border-radius: 8px !important;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch; /* allow descriptive text to span full width */
+        text-align: left; /* description left-aligned at top */
+    }
+
+    /* Keep the descriptive text above each formula and slightly separated */
+    .tab-panel .prose ul li > strong { display:block; margin-bottom:8px; color: #0f172a; font-size:1rem; }
+
+    /* Inner formula block styling remains centered and readable */
+    .tab-panel .prose ul li .text-lg {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #07203b; /* keep contrast */
+        width: 100%;
+        min-height: 56px; /* ensure vertical breathing space */
+    }
+
+    /* Reduce visual weight of hr inside this page */
+    .tab-panel hr { border-color: rgba(255,255,255,0.06); }
+</style>
+{% endblock extra_css %}
+
 {% block contenido %}
 <div class="relative max-w-4xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
     <!-- Volver -->
@@ -42,7 +109,7 @@
             <div class="prose max-w-none text-gray-800">
                 <h2 class="text-2xl font-semibold mb-4">Límites</h2>
 
-                <ul class="space-y-6">
+                <ul class="formulas-container space-y-6">
                     <li>
                         <strong>Suma / Resta:</strong>
                         <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
@@ -82,7 +149,7 @@
                 <hr class="my-6" />
 
                 <h3 class="text-xl font-semibold mb-3">Límites especiales (indispensables)</h3>
-                <ul class="space-y-6">
+                <ul class="formulas-container space-y-6">
                     <li>
                         <strong>Límite trigonométrico fundamental:</strong>
                         <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
@@ -120,7 +187,7 @@
                 <hr class="my-6" />
 
                 <h3 class="text-xl font-semibold mb-3">Reglas básicas de derivación</h3>
-                <ul class="space-y-4">
+                <ul class="formulas-container space-y-4">
                     <li>
                         <strong>Regla de la constante:</strong>
                         <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle f(x)=c\Rightarrow f'(x)=0$$</div>
@@ -143,7 +210,7 @@
                 </ul>
 
                 <h3 class="text-xl font-semibold mt-6 mb-3">Reglas principales (Producto, Cociente y Cadena)</h3>
-                <ul class="space-y-6">
+                <ul class="formulas-container space-y-6">
                     <li>
                         <strong>Regla del producto:</strong>
                         <div class="mt-2 bg-white p-4 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[f(x)g(x)]=f'(x)g(x)+f(x)g'(x)$$</div>
@@ -177,7 +244,7 @@
                 </ul>
 
                 <h3 class="text-xl font-semibold mt-6 mb-3">Trigonométricas</h3>
-                <ul class="space-y-3">
+                <ul class="formulas-container space-y-4">
                     <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\sin x=\cos x$$</div></li>
                     <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\cos x=-\sin x$$</div></li>
                     <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\tan x=\sec^{2}x$$</div></li>
@@ -226,7 +293,7 @@
                 </ul>
 
                 <h3 class="text-xl font-semibold mt-6 mb-3">II. Integrales trigonométricas básicas</h3>
-                <ul class="space-y-3">
+                <ul class="formulas-container space-y-3">
                     <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \sin u\,du = -\cos u + C$$</div></li>
                     <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \cos u\,du = \sin u + C$$</div></li>
                     <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \tan u\,du = -\ln|\cos u| + C$$</div></li>
