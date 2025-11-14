@@ -1,0 +1,35 @@
+<head>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['##', '##'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+</head>
+<body>
+<h1>jrecicios</h1>
+{% for ejercicio in ejercicios %}
+<div>
+<h1>{{ forloop.counter }}. Ejercicio de {{ejercicio.topico}}: 
+{{ ejercicio.enunciado }}
+<h1>
+##{{ejercicio.ejercicio}}##
+</h1>
+{% for alternativa in ejercicio.alternativas %}
+<h1>Alternativa {{ forloop.counter }} :
+##{{alternativa}}##
+{% endfor %}
+</h1>
+{% endfor %}
+</body>
