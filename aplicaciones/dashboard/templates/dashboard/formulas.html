@@ -2,157 +2,251 @@
 
 {% block title %}{{ titulo_pagina }}{% endblock %}
 
-{% block extra_css %}
-<style>
-    /* Animaciones */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes slideIn {
-        from { opacity: 0; transform: translateX(-20px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-    
-    .fade-in {
-        animation: fadeIn 0.6s ease-out;
-    }
-    
-    .slide-in {
-        animation: slideIn 0.3s ease-out;
-    }
-    
-    /* Contenedor principal mejorado */
-    .formulas-container {
-        background: linear-gradient(to bottom, #f0f7ff 0%, #ffffff 100%);
-        border-radius: 12px;
-        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.12);
-        transition: all 0.3s ease;
-    }
-    
-    /* Transiciones suaves */
-    .smooth-transition {
-        transition: all 0.3s ease;
-    }
-    
-    /* Mejora de pestañas */
-    .tab-link {
-        transition: all 0.3s ease;
-        position: relative;
-    }
-    
-    .tab-link:hover {
-        transform: translateY(-2px);
-    }
-    
-    .tab-link.active {
-        color: #dc2626 !important;
-        border-color: #dc2626 !important;
-    }
-    
-    /* Contenido vacío mejorado */
-    .empty-content {
-        background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
-        border-radius: 12px;
-        padding: 3rem 2rem;
-        text-align: center;
-        color: #475569;
-        font-size: 1.1rem;
-        transition: all 0.3s ease;
-    }
-    
-    .empty-content:hover {
-        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);
-        transform: translateY(-2px);
-    }
-    
-    /* Responsive */
-    @media (max-width: 640px) {
-        .formulas-container {
-            border-radius: 8px;
-            padding: 1rem;
-        }
-        
-        .tab-link {
-            font-size: 0.95rem;
-            padding: 0.75rem 0.5rem;
-        }
-    }
-</style>
-{% endblock extra_css %}
-
 {% block contenido %}
 <div class="relative max-w-4xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
     <!-- Volver -->
-    <a href="{% url 'dashboard:dashboard_view' %}" class="absolute top-0 left-0 text-gray-400 hover:text-gray-600 smooth-transition" title="Volver al Dashboard">
+    <a href="{% url 'dashboard:dashboard_view' %}" class="absolute top-0 left-0 text-gray-400 hover:text-gray-600 transition-colors" title="Volver al Dashboard">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
     </a>
 
-    <!-- Contenedor principal con gradiente y sombra -->
-    <div class="formulas-container p-8 fade-in">
-        <!-- Título principal con icono y subtítulo -->
-        <div class="text-center mb-6">
-            <h1 class="text-4xl font-extrabold text-gray-800 mb-3" style="font-family: 'Poppins', sans-serif;">
-                <span class="text-4xl mr-2">∫</span>Formulario de Cálculo
-            </h1>
-            <p class="text-lg text-gray-600 font-medium" style="font-family: 'Poppins', sans-serif;">
-                Explora las fórmulas esenciales de Cálculo organizadas por categoría.
-            </p>
+    <h1 class="text-3xl font-extrabold text-gray-800 mb-6 border-b pb-3 text-center">
+        Formulario de Cálculo
+    </h1>
+
+    <!-- Navegación -->
+    <div class="border-b border-gray-200 mb-8">
+        <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
+            <!-- Pestaña Límites -->
+            <a href="#" data-tab="limites" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-blue-600 border-blue-600" aria-current="page">
+                Límites
+            </a>
+
+            <!-- Pestaña Derivadas -->
+            <a href="#" data-tab="derivadas" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 transition-colors">
+                Derivadas
+            </a>
+
+            <!-- Pestaña Integrales -->
+            <a href="#" data-tab="integrales" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 transition-colors">
+                Integrales
+            </a>
+        </nav>
+    </div>
+
+    <!-- Contenido -->
+    <div class="mt-8">
+        <!-- Contenido Límites -->
+        <div id="limites-content" class="tab-panel">
+            <div class="prose max-w-none text-gray-800">
+                <h2 class="text-2xl font-semibold mb-4">Límites</h2>
+
+                <ul class="space-y-6">
+                    <li>
+                        <strong>Suma / Resta:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to a}[f(x)\pm g(x)]=\lim_{x\to a}f(x)\pm\lim_{x\to a}g(x)$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Múltiplo constante:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to a}[c\cdot f(x)]=c\cdot\lim_{x\to a}f(x)$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Producto:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to a}[f(x)\cdot g(x)]=\lim_{x\to a}f(x)\cdot\lim_{x\to a}g(x)$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Cociente:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to a}\frac{f(x)}{g(x)}=\frac{\lim_{x\to a}f(x)}{\lim_{x\to a}g(x)}\quad(\text{si }\lim_{x\to a}g(x)\neq0)$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Potencia:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to a}[f(x)]^{n}=\left[\lim_{x\to a}f(x)\right]^{n}$$</div>
+                        </div>
+                    </li>
+                </ul>
+
+                <hr class="my-6" />
+
+                <h3 class="text-xl font-semibold mb-3">Límites especiales (indispensables)</h3>
+                <ul class="space-y-6">
+                    <li>
+                        <strong>Límite trigonométrico fundamental:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to0}\frac{\sin x}{x}=1$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Relacionado al anterior:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to0}\frac{1-\cos x}{x}=0$$</div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <strong>Definiciones del número e:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm space-y-2">
+                            <div class="text-lg">$$\displaystyle\lim_{x\to0}(1+x)^{1/x}=e$$</div>
+                            <div class="text-lg">$$\displaystyle\lim_{n\to\infty}\left(1+\frac{1}{n}\right)^{n}=e$$</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <!-- Navegación de pestañas -->
-        <div class="border-b border-gray-200 mb-6 mt-8">
-            <nav class="-mb-px flex justify-center space-x-8" aria-label="Tabs">
-                <!-- Pestaña Límites -->
-                <a href="#" data-tab="limites" class="tab-link active whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg" aria-current="page">
-                    Límites
-                </a>
+        <!-- Contenido Derivadas -->
+        <div id="derivadas-content" class="tab-panel hidden">
+            <div class="prose max-w-none text-gray-800">
+                <h2 class="text-2xl font-semibold mb-4">Derivadas</h2>
+                <p class="mb-4">Definición formal de la derivada:</p>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-lg">
+                    $$\displaystyle f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$$
+                </div>
 
-                <!-- Pestaña Derivadas -->
-                <a href="#" data-tab="derivadas" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300">
-                    Derivadas
-                </a>
+                <hr class="my-6" />
 
-                <!-- Pestaña Integrales -->
-                <a href="#" data-tab="integrales" class="tab-link whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-lg text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300">
-                    Integrales
-                </a>
-            </nav>
+                <h3 class="text-xl font-semibold mb-3">Reglas básicas de derivación</h3>
+                <ul class="space-y-4">
+                    <li>
+                        <strong>Regla de la constante:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle f(x)=c\Rightarrow f'(x)=0$$</div>
+                    </li>
+
+                    <li>
+                        <strong>Regla de la potencia:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[x^{n}]=n\,x^{n-1}$$</div>
+                    </li>
+
+                    <li>
+                        <strong>Múltiplo constante:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[c\cdot f(x)]=c\cdot f'(x)$$</div>
+                    </li>
+
+                    <li>
+                        <strong>Regla de la suma y resta:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[f(x)\pm g(x)]=f'(x)\pm g'(x)$$</div>
+                    </li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">Reglas principales (Producto, Cociente y Cadena)</h3>
+                <ul class="space-y-6">
+                    <li>
+                        <strong>Regla del producto:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[f(x)g(x)]=f'(x)g(x)+f(x)g'(x)$$</div>
+                    </li>
+
+                    <li>
+                        <strong>Regla del cociente:</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\left[\frac{f(x)}{g(x)}\right]=\frac{f'(x)g(x)-f(x)g'(x)}{[g(x)]^{2}}$$</div>
+                    </li>
+
+                    <li>
+                        <strong>Regla de la cadena (para \(f(g(x))\)):</strong>
+                        <div class="mt-2 bg-white p-4 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}[f(g(x))]=f'(g(x))\cdot g'(x)$$</div>
+                    </li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">Exponenciales y logarítmicas</h3>
+                <ul class="space-y-4">
+                    <li>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}e^{x}=e^{x}$$</div>
+                    </li>
+                    <li>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}a^{x}=a^{x}\ln(a)$$</div>
+                    </li>
+                    <li>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\ln x=\frac{1}{x}$$</div>
+                    </li>
+                    <li>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\log_{a}x=\frac{1}{x\ln a}$$</div>
+                    </li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">Trigonométricas</h3>
+                <ul class="space-y-3">
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\sin x=\cos x$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\cos x=-\sin x$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\tan x=\sec^{2}x$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\cot x=-\csc^{2}x$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\sec x=\sec x\tan x$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\csc x=-\csc x\cot x$$</div></li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">Trigonométricas inversas</h3>
+                <ul class="space-y-3">
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\arcsin x=\frac{1}{\sqrt{1-x^{2}}}$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\arccos x=-\frac{1}{\sqrt{1-x^{2}}}$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \frac{d}{dx}\arctan x=\frac{1}{1+x^{2}}$$</div></li>
+                </ul>
+            </div>
         </div>
 
-        <!-- Contenido -->
-        <div class="mt-8">
-            <!-- Contenido Límites -->
-            <div id="limites-content" class="tab-panel slide-in">
-                <div class="empty-content">
-                    <div class="text-5xl mb-4">📄</div>
-                    <p class="font-medium">
-                        💡 Selecciona una categoría para ver las fórmulas de Cálculo correspondientes.
-                    </p>
-                </div>
-            </div>
+        <!-- Contenido Integrales -->
+        <div id="integrales-content" class="tab-panel hidden">
+            <div class="prose max-w-none text-gray-800">
+                <h2 class="text-2xl font-semibold mb-4">Integrales</h2>
+                <p class="mb-3">Resumen de reglas e identidades más usadas en integración.</p>
 
-            <!-- Contenido Derivadas -->
-            <div id="derivadas-content" class="tab-panel hidden">
-                <div class="empty-content">
-                    <div class="text-5xl mb-4">🧮</div>
-                    <p class="font-medium">
-                        💡 Selecciona una categoría para ver las fórmulas de Cálculo correspondientes.
-                    </p>
-                </div>
-            </div>
+                <h3 class="text-xl font-semibold mt-4 mb-3">I. Integrales inmediatas (Básicas / Potencia)</h3>
+                <ul class="space-y-4">
+                    <li>
+                        <strong>Constante:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int k\,du = k\,u + C$$</div>
+                    </li>
+                    <li>
+                        <strong>Potencia (n \neq -1):</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int u^{n}\,du = \frac{u^{n+1}}{n+1}+C$$</div>
+                    </li>
+                    <li>
+                        <strong>Logaritmo (n = -1):</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \frac{1}{u}\,du=\ln|u|+C$$</div>
+                    </li>
+                    <li>
+                        <strong>Exponencial:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int e^{u}\,du = e^{u}+C$$</div>
+                    </li>
+                    <li>
+                        <strong>Exponencial base a:</strong>
+                        <div class="mt-2 bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int a^{u}\,du = \frac{a^{u}}{\ln a}+C$$</div>
+                    </li>
+                </ul>
 
-            <!-- Contenido Integrales -->
-            <div id="integrales-content" class="tab-panel hidden">
-                <div class="empty-content">
-                    <div class="text-5xl mb-4">📘</div>
-                    <p class="font-medium">
-                        💡 Selecciona una categoría para ver las fórmulas de Cálculo correspondientes.
-                    </p>
-                </div>
+                <h3 class="text-xl font-semibold mt-6 mb-3">II. Integrales trigonométricas básicas</h3>
+                <ul class="space-y-3">
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \sin u\,du = -\cos u + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \cos u\,du = \sin u + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \tan u\,du = -\ln|\cos u| + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \cot u\,du = \ln|\sin u| + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \sec u\,du = \ln|\sec u + \tan u| + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \csc u\,du = -\ln|\csc u + \cot u| + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \sec^{2}u\,du = \tan u + C$$</div></li>
+                    <li><div class="bg-white p-3 rounded-lg shadow-sm text-lg">$$\displaystyle \int \csc^{2}u\,du = -\cot u + C$$</div></li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">III. Integración por partes</h3>
+                <p class="mb-2">Se usa para integrar productos de funciones.</p>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-lg mb-4">$$\displaystyle \int u\,dv = u\,v - \int v\,du$$</div>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">IV. Teorema Fundamental del Cálculo (TFC)</h3>
+                <p class="mb-2">Primera parte (inversa de la derivación):</p>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-lg mb-3">$$\displaystyle g(x)=\int_{a}^{x}f(t)\,dt\quad\Rightarrow\quad g'(x)=f(x)$$</div>
+                <p class="mb-2">Segunda parte (cálculo de integrales definidas):</p>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-lg">$$\displaystyle \int_{a}^{b}f(x)\,dx=F(b)-F(a)\quad\text{si }F'=f$$</div>
+
             </div>
         </div>
     </div>
@@ -160,6 +254,20 @@
 {% endblock contenido %}
 
 {% block extra_js %}
+<!-- Math rendering (MathJax) -->
+<script>
+window.MathJax = {
+    tex: {
+        inlineMath: [['\\(','\\)']],
+        displayMath: [['$$','$$']]
+    },
+    options: {
+        skipHtmlTags: ['script','noscript','style','textarea','pre']
+    }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+
 <!-- Lógica de Pestañas -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -170,30 +278,19 @@ document.addEventListener('DOMContentLoaded', function() {
         tab.addEventListener('click', function(event) {
             event.preventDefault();
 
-            // Remover clases activas de todas las pestañas
             tabs.forEach(t => {
-                t.classList.remove('active', 'text-blue-600', 'border-blue-600');
+                t.classList.remove('text-blue-600', 'border-blue-600');
                 t.classList.add('text-gray-500', 'border-transparent');
             });
-            
-            // Ocultar todos los paneles con fade out
-            panels.forEach(p => {
-                p.classList.add('hidden');
-                p.classList.remove('slide-in');
-            });
+            panels.forEach(p => p.classList.add('hidden'));
 
-            // Activar la pestaña seleccionada
-            this.classList.add('active');
+            this.classList.add('text-blue-600', 'border-blue-600');
             this.classList.remove('text-gray-500', 'border-transparent');
 
-            // Mostrar el panel correspondiente con animación
             const targetPanelId = this.dataset.tab + '-content';
             const targetPanel = document.getElementById(targetPanelId);
             if (targetPanel) {
                 targetPanel.classList.remove('hidden');
-                // Forzar reflow para reiniciar la animación
-                void targetPanel.offsetWidth;
-                targetPanel.classList.add('slide-in');
             }
         });
     });
