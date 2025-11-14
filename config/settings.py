@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'aplicaciones.pagina', # App existente
     'aplicaciones.recursos', # Nueva app de recursos
     'aplicaciones.dashboard', # Nueva app de dashboard
+    'aplicaciones.ejercicios', # App de ejercicios añadida (v3)
 ]
 
 MIDDLEWARE = [

@@ -22,6 +22,8 @@ urlpatterns = [
 
     # Rutas para la nueva aplicación 'dashboard'
     path('dashboard/', include('aplicaciones.dashboard.urls')),
+    # Rutas para la aplicación 'ejercicios'
+    path('ejercicios/', include(('aplicaciones.ejercicios.urls', 'ejercicios'), namespace='ejercicios')),
 
     # Rutas de autenticación de Django
     path('login/', auth_views.LoginView.as_view(
