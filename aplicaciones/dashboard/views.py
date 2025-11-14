@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 import random
 from aplicaciones.recursos.models import Asignatura, Nivel
 from .logic.ia_service import call_ai_api, is_allowed_topic
+from django.shortcuts import redirect
 
 @login_required(login_url='login')
 def dashboard_view(request):
@@ -74,3 +75,13 @@ def formulas_view(request):
         'titulo_pagina': 'Formulario de Cálculo',
     }
     return render(request, 'dashboard/formulas.html', contexto)
+
+
+@login_required(login_url='login')
+def ejercitar_view(request):
+    """Redirige al índice de la app 'ejercicios'.
+
+    Mantener esta vista en `dashboard` para que la URL
+    `/dashboard/ejercitar/` abra la app de ejercicios.
+    """
+    return redirect('ejercicios:index')
