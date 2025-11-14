@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="./crear-prueba/" method="post">
+        {% csrf_token %}
+    <div>
+     <label for="username">Nombre de usuario: </label>   
+     <input type="text" id="username" name="username"></input>
+     <div>
+                    <label for="topicos">Selecciona uno o más tópicos (Mantener pulsado Ctrl para seleccionar mas de uno):</label>
+                    <br>
+                    <select id="topicos" name="topicos" multiple size="{{ topicos|length }}">
+                        {% for topico in topicos %}
+                        <option value="{{ topico }}">{{ topico }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+     <button type="submit">Crear prueba</button>
+    </div>    
+    </form>
+        <div>
+            <h2>Ver Pruebas por usuario</h2>
+            <form action="./lista-pruebas/" method="get">
+                <div>
+                    <label for="id">Usuario:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <button type="submit">Obtener Pruebas</button>
+            </form>
+        </div>
+    
+</body>
+</html>

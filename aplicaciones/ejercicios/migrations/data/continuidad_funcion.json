@@ -1,0 +1,452 @@
+[
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 2",
+    "formula": "f(x) = \\frac{x^2 - 4}{x - 2}",
+    "respuesta": "\\text{Discontinua removible en } x = 2",
+    "alternativa_1": "\\text{Continua en } x = 2",
+    "alternativa_2": "\\text{Discontinua esencial en } x = 2",
+    "alternativa_3": "\\text{Discontinua de salto en } x = 2"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el valor de k para que la función sea continua en x = 3",
+    "formula": "f(x) = \\begin{cases} x^2 + 1 & \\text{si } x < 3 \\\\ k & \\text{si } x = 3 \\\\ 2x + 4 & \\text{si } x > 3 \\end{cases}",
+    "respuesta": "k = 10",
+    "alternativa_1": "k = 9",
+    "alternativa_2": "k = 11",
+    "alternativa_3": "k = 7"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique el tipo de discontinuidad en x = 0",
+    "formula": "f(x) = \\frac{1}{x}",
+    "respuesta": "\\text{Discontinuidad infinita}",
+    "alternativa_1": "\\text{Discontinuidad removible}",
+    "alternativa_2": "\\text{Discontinuidad de salto}",
+    "alternativa_3": "\\text{Función continua}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 1",
+    "formula": "f(x) = \\begin{cases} x + 2 & \\text{si } x \\leq 1 \\\\ 3x & \\text{si } x > 1 \\end{cases}",
+    "respuesta": "\\text{Continua en } x = 1",
+    "alternativa_1": "\\text{Discontinua de salto en } x = 1",
+    "alternativa_2": "\\text{Discontinua removible en } x = 1",
+    "alternativa_3": "\\text{Discontinua infinita en } x = 1"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Encuentre el valor de a para que la función sea continua en x = 0",
+    "formula": "f(x) = \\begin{cases} \\frac{\\sin(3x)}{x} & \\text{si } x \\neq 0 \\\\ a & \\text{si } x = 0 \\end{cases}",
+    "respuesta": "a = 3",
+    "alternativa_1": "a = 1",
+    "alternativa_2": "a = 0",
+    "alternativa_3": "a = \\frac{1}{3}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el tipo de discontinuidad en x = 2",
+    "formula": "f(x) = \\begin{cases} x^2 & \\text{si } x < 2 \\\\ 5 & \\text{si } x \\geq 2 \\end{cases}",
+    "respuesta": "\\text{Discontinuidad de salto}",
+    "alternativa_1": "\\text{Discontinuidad removible}",
+    "alternativa_2": "\\text{Discontinuidad infinita}",
+    "alternativa_3": "\\text{Función continua}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = -1",
+    "formula": "f(x) = \\frac{x^2 - 1}{x + 1}",
+    "respuesta": "\\text{Discontinua removible en } x = -1",
+    "alternativa_1": "\\text{Continua en } x = -1",
+    "alternativa_2": "\\text{Discontinua infinita en } x = -1",
+    "alternativa_3": "\\text{Discontinua de salto en } x = -1"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Encuentre el valor de b para que la función sea continua en todo ℝ",
+    "formula": "f(x) = \\begin{cases} x^2 - 1 & \\text{si } x \\leq 2 \\\\ bx + 1 & \\text{si } x > 2 \\end{cases}",
+    "respuesta": "b = 1",
+    "alternativa_1": "b = 2",
+    "alternativa_2": "b = 3",
+    "alternativa_3": "b = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 0",
+    "formula": "f(x) = \\begin{cases} \\frac{e^x - 1}{x} & \\text{si } x \\neq 0 \\\\ 1 & \\text{si } x = 0 \\end{cases}",
+    "respuesta": "\\text{Continua en } x = 0",
+    "alternativa_1": "\\text{Discontinua removible en } x = 0",
+    "alternativa_2": "\\text{Discontinua de salto en } x = 0",
+    "alternativa_3": "\\text{Discontinua infinita en } x = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique todos los puntos de discontinuidad",
+    "formula": "f(x) = \\frac{x - 1}{x^2 - 4}",
+    "respuesta": "x = 2 \\text{ y } x = -2",
+    "alternativa_1": "x = 1",
+    "alternativa_2": "x = 0",
+    "alternativa_3": "x = 4"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el valor de k para que la función sea continua en x = 0",
+    "formula": "f(x) = \\begin{cases} \\frac{\\sin(5x)}{x} & \\text{si } x \\neq 0 \\\\ k & \\text{si } x = 0 \\end{cases}",
+    "respuesta": "k = 5",
+    "alternativa_1": "k = 1",
+    "alternativa_2": "k = 0",
+    "alternativa_3": "k = \\frac{1}{5}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 3",
+    "formula": "f(x) = \\frac{x^2 - 9}{x - 3}",
+    "respuesta": "\\text{Discontinua removible en } x = 3",
+    "alternativa_1": "\\text{Continua en } x = 3",
+    "alternativa_2": "\\text{Discontinua infinita en } x = 3",
+    "alternativa_3": "\\text{Discontinua de salto en } x = 3"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el tipo de discontinuidad en x = 1",
+    "formula": "f(x) = \\begin{cases} 2x + 1 & \\text{si } x < 1 \\\\ 4 & \\text{si } x \\geq 1 \\end{cases}",
+    "respuesta": "\\text{Discontinuidad de salto}",
+    "alternativa_1": "\\text{Función continua}",
+    "alternativa_2": "\\text{Discontinuidad removible}",
+    "alternativa_3": "\\text{Discontinuidad infinita}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Encuentre el valor de a y b para que la función sea continua en x = 1",
+    "formula": "f(x) = \\begin{cases} ax + b & \\text{si } x \\leq 1 \\\\ 2x^2 & \\text{si } x > 1 \\end{cases}",
+    "respuesta": "a = 4, b = -2",
+    "alternativa_1": "a = 2, b = 0",
+    "alternativa_2": "a = 1, b = 1",
+    "alternativa_3": "a = 3, b = -1"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 0",
+    "formula": "f(x) = |x|",
+    "respuesta": "\\text{Continua en } x = 0",
+    "alternativa_1": "\\text{Discontinua removible en } x = 0",
+    "alternativa_2": "\\text{Discontinua de salto en } x = 0",
+    "alternativa_3": "\\text{Discontinua infinita en } x = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique el tipo de discontinuidad en x = -3",
+    "formula": "f(x) = \\frac{2}{x + 3}",
+    "respuesta": "\\text{Discontinuidad infinita}",
+    "alternativa_1": "\\text{Discontinuidad removible}",
+    "alternativa_2": "\\text{Discontinuidad de salto}",
+    "alternativa_3": "\\text{Función continua}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el valor de c para que la función sea continua en x = 2",
+    "formula": "f(x) = \\begin{cases} x^3 - 8 & \\text{si } x < 2 \\\\ c & \\text{si } x = 2 \\\\ 4x - 8 & \\text{si } x > 2 \\end{cases}",
+    "respuesta": "c = 0",
+    "alternativa_1": "c = 8",
+    "alternativa_2": "c = -8",
+    "alternativa_3": "c = 4"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 5",
+    "formula": "f(x) = \\begin{cases} \\frac{x^2 - 25}{x - 5} & \\text{si } x \\neq 5 \\\\ 10 & \\text{si } x = 5 \\end{cases}",
+    "respuesta": "\\text{Continua en } x = 5",
+    "alternativa_1": "\\text{Discontinua removible en } x = 5",
+    "alternativa_2": "\\text{Discontinua de salto en } x = 5",
+    "alternativa_3": "\\text{Discontinua infinita en } x = 5"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique todos los puntos de discontinuidad",
+    "formula": "f(x) = \\frac{1}{x^2 - 9}",
+    "respuesta": "x = 3 \\text{ y } x = -3",
+    "alternativa_1": "x = 0",
+    "alternativa_2": "x = 9",
+    "alternativa_3": "x = 1 \\text{ y } x = -1"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el valor de k para que la función sea continua en x = 0",
+    "formula": "f(x) = \\begin{cases} \\frac{1 - \\cos(x)}{x^2} & \\text{si } x \\neq 0 \\\\ k & \\text{si } x = 0 \\end{cases}",
+    "respuesta": "k = \\frac{1}{2}",
+    "alternativa_1": "k = 1",
+    "alternativa_2": "k = 0",
+    "alternativa_3": "k = 2"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el tipo de discontinuidad en x = 0",
+    "formula": "f(x) = \\frac{x}{|x|}",
+    "respuesta": "\\text{Discontinuidad de salto}",
+    "alternativa_1": "\\text{Discontinuidad removible}",
+    "alternativa_2": "\\text{Discontinuidad infinita}",
+    "alternativa_3": "\\text{Función continua}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 4",
+    "formula": "f(x) = \\frac{x - 4}{\\sqrt{x} - 2}",
+    "respuesta": "\\text{Discontinua removible en } x = 4",
+    "alternativa_1": "\\text{Continua en } x = 4",
+    "alternativa_2": "\\text{Discontinua infinita en } x = 4",
+    "alternativa_3": "\\text{Discontinua de salto en } x = 4"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Encuentre el valor de a para que la función sea continua en x = -2",
+    "formula": "f(x) = \\begin{cases} x^2 + ax & \\text{si } x \\leq -2 \\\\ 3x + 2 & \\text{si } x > -2 \\end{cases}",
+    "respuesta": "a = 3",
+    "alternativa_1": "a = -1",
+    "alternativa_2": "a = 2",
+    "alternativa_3": "a = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en todo su dominio",
+    "formula": "f(x) = x^3 + 2x - 1",
+    "respuesta": "\\text{Continua en todo } \\mathbb{R}",
+    "alternativa_1": "\\text{Discontinua en } x = 0",
+    "alternativa_2": "\\text{Discontinua en } x = 1",
+    "alternativa_3": "\\text{Discontinua en } x = -1"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique el tipo de discontinuidad en x = 1",
+    "formula": "f(x) = \\frac{x^2 - 1}{(x - 1)^2}",
+    "respuesta": "\\text{Discontinuidad infinita}",
+    "alternativa_1": "\\text{Discontinuidad removible}",
+    "alternativa_2": "\\text{Discontinuidad de salto}",
+    "alternativa_3": "\\text{Función continua}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el valor de k para que la función sea continua en x = 1",
+    "formula": "f(x) = \\begin{cases} 3x - 1 & \\text{si } x < 1 \\\\ k & \\text{si } x = 1 \\\\ x^2 + 1 & \\text{si } x > 1 \\end{cases}",
+    "respuesta": "k = 2",
+    "alternativa_1": "k = 1",
+    "alternativa_2": "k = 3",
+    "alternativa_3": "k = 4"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 0",
+    "formula": "f(x) = \\begin{cases} \\frac{\\sin(x)}{x} & \\text{si } x \\neq 0 \\\\ 1 & \\text{si } x = 0 \\end{cases}",
+    "respuesta": "\\text{Continua en } x = 0",
+    "alternativa_1": "\\text{Discontinua removible en } x = 0",
+    "alternativa_2": "\\text{Discontinua de salto en } x = 0",
+    "alternativa_3": "\\text{Discontinua infinita en } x = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique todos los puntos de discontinuidad",
+    "formula": "f(x) = \\frac{x + 2}{x^2 - x - 6}",
+    "respuesta": "x = 3 \\text{ y } x = -2",
+    "alternativa_1": "x = 2",
+    "alternativa_2": "x = -3",
+    "alternativa_3": "x = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el tipo de discontinuidad en x = -1",
+    "formula": "f(x) = \\begin{cases} x^2 + 2x & \\text{si } x < -1 \\\\ 0 & \\text{si } x \\geq -1 \\end{cases}",
+    "respuesta": "\\text{Discontinuidad de salto}",
+    "alternativa_1": "\\text{Función continua}",
+    "alternativa_2": "\\text{Discontinuidad removible}",
+    "alternativa_3": "\\text{Discontinuidad infinita}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Encuentre el valor de m para que la función sea continua en x = 0",
+    "formula": "f(x) = \\begin{cases} \\frac{\\tan(x)}{x} & \\text{si } x \\neq 0 \\\\ m & \\text{si } x = 0 \\end{cases}",
+    "respuesta": "m = 1",
+    "alternativa_1": "m = 0",
+    "alternativa_2": "m = \\pi",
+    "alternativa_3": "m = -1"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = -3",
+    "formula": "f(x) = \\frac{x^2 + 2x - 3}{x + 3}",
+    "respuesta": "\\text{Discontinua removible en } x = -3",
+    "alternativa_1": "\\text{Continua en } x = -3",
+    "alternativa_2": "\\text{Discontinua infinita en } x = -3",
+    "alternativa_3": "\\text{Discontinua de salto en } x = -3"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique el tipo de discontinuidad en x = 2",
+    "formula": "f(x) = \\frac{3x}{(x - 2)^3}",
+    "respuesta": "\\text{Discontinuidad infinita}",
+    "alternativa_1": "\\text{Discontinuidad removible}",
+    "alternativa_2": "\\text{Discontinuidad de salto}",
+    "alternativa_3": "\\text{Función continua}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el valor de p para que la función sea continua en x = 4",
+    "formula": "f(x) = \\begin{cases} \\sqrt{x} & \\text{si } x < 4 \\\\ p & \\text{si } x = 4 \\\\ \\frac{x}{2} & \\text{si } x > 4 \\end{cases}",
+    "respuesta": "p = 2",
+    "alternativa_1": "p = 4",
+    "alternativa_2": "p = 1",
+    "alternativa_3": "p = 8"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 0",
+    "formula": "f(x) = \\begin{cases} x + 1 & \\text{si } x \\leq 0 \\\\ e^x & \\text{si } x > 0 \\end{cases}",
+    "respuesta": "\\text{Continua en } x = 0",
+    "alternativa_1": "\\text{Discontinua de salto en } x = 0",
+    "alternativa_2": "\\text{Discontinua removible en } x = 0",
+    "alternativa_3": "\\text{Discontinua infinita en } x = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique todos los puntos donde la función NO es continua",
+    "formula": "f(x) = \\frac{x^2 + x}{x^2 - 16}",
+    "respuesta": "x = 4 \\text{ y } x = -4",
+    "alternativa_1": "x = 0",
+    "alternativa_2": "x = -1",
+    "alternativa_3": "x = 16"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el valor de a para que la función sea continua en x = 0",
+    "formula": "f(x) = \\begin{cases} \\frac{e^{2x} - 1}{x} & \\text{si } x \\neq 0 \\\\ a & \\text{si } x = 0 \\end{cases}",
+    "respuesta": "a = 2",
+    "alternativa_1": "a = 1",
+    "alternativa_2": "a = e",
+    "alternativa_3": "a = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el tipo de discontinuidad en x = 3",
+    "formula": "f(x) = \\begin{cases} 2x - 1 & \\text{si } x < 3 \\\\ 7 & \\text{si } x \\geq 3 \\end{cases}",
+    "respuesta": "\\text{Discontinuidad de salto}",
+    "alternativa_1": "\\text{Función continua}",
+    "alternativa_2": "\\text{Discontinuidad removible}",
+    "alternativa_3": "\\text{Discontinuidad infinita}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 1",
+    "formula": "f(x) = \\frac{x^3 - 1}{x - 1}",
+    "respuesta": "\\text{Discontinua removible en } x = 1",
+    "alternativa_1": "\\text{Continua en } x = 1",
+    "alternativa_2": "\\text{Discontinua infinita en } x = 1",
+    "alternativa_3": "\\text{Discontinua de salto en } x = 1"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Encuentre los valores de a y b para que la función sea continua en x = 2",
+    "formula": "f(x) = \\begin{cases} x + a & \\text{si } x < 2 \\\\ b & \\text{si } x = 2 \\\\ x^2 - 1 & \\text{si } x > 2 \\end{cases}",
+    "respuesta": "a = 1, b = 3",
+    "alternativa_1": "a = 0, b = 2",
+    "alternativa_2": "a = 2, b = 4",
+    "alternativa_3": "a = -1, b = 1"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique el tipo de discontinuidad en x = 0",
+    "formula": "f(x) = \\frac{\\sin(x)}{x^2}",
+    "respuesta": "\\text{Discontinuidad infinita}",
+    "alternativa_1": "\\text{Discontinuidad removible}",
+    "alternativa_2": "\\text{Discontinuidad de salto}",
+    "alternativa_3": "\\text{Función continua}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en todo su dominio",
+    "formula": "f(x) = \\sqrt{x^2 + 1}",
+    "respuesta": "\\text{Continua en todo } \\mathbb{R}",
+    "alternativa_1": "\\text{Discontinua en } x = 0",
+    "alternativa_2": "\\text{Discontinua en } x = 1",
+    "alternativa_3": "\\text{Discontinua en } x = -1"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el valor de k para que la función sea continua en x = -1",
+    "formula": "f(x) = \\begin{cases} x^2 + 3x & \\text{si } x < -1 \\\\ k & \\text{si } x = -1 \\\\ 2x & \\text{si } x > -1 \\end{cases}",
+    "respuesta": "k = -2",
+    "alternativa_1": "k = 0",
+    "alternativa_2": "k = 1",
+    "alternativa_3": "k = -1"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique todos los puntos de discontinuidad",
+    "formula": "f(x) = \\frac{x - 3}{x^2 + x - 12}",
+    "respuesta": "x = 3 \\text{ y } x = -4",
+    "alternativa_1": "x = -3 \\text{ y } x = 4",
+    "alternativa_2": "x = 0",
+    "alternativa_3": "x = 12"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 0",
+    "formula": "f(x) = \\begin{cases} \\frac{x^2}{|x|} & \\text{si } x \\neq 0 \\\\ 0 & \\text{si } x = 0 \\end{cases}",
+    "respuesta": "\\text{Continua en } x = 0",
+    "alternativa_1": "\\text{Discontinua de salto en } x = 0",
+    "alternativa_2": "\\text{Discontinua removible en } x = 0",
+    "alternativa_3": "\\text{Discontinua infinita en } x = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el tipo de discontinuidad en x = -2",
+    "formula": "f(x) = \\frac{x + 2}{x^2 + 4x + 4}",
+    "respuesta": "\\text{Discontinuidad infinita}",
+    "alternativa_1": "\\text{Discontinuidad removible}",
+    "alternativa_2": "\\text{Discontinuidad de salto}",
+    "alternativa_3": "\\text{Función continua}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Encuentre el valor de c para que la función sea continua en x = 1",
+    "formula": "f(x) = \\begin{cases} 2x^2 - 1 & \\text{si } x \\leq 1 \\\\ cx + 3 & \\text{si } x > 1 \\end{cases}",
+    "respuesta": "c = -2",
+    "alternativa_1": "c = 1",
+    "alternativa_2": "c = 2",
+    "alternativa_3": "c = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 0",
+    "formula": "f(x) = \\begin{cases} \\frac{\\ln(1 + x)}{x} & \\text{si } x \\neq 0 \\\\ 1 & \\text{si } x = 0 \\end{cases}",
+    "respuesta": "\\text{Continua en } x = 0",
+    "alternativa_1": "\\text{Discontinua removible en } x = 0",
+    "alternativa_2": "\\text{Discontinua de salto en } x = 0",
+    "alternativa_3": "\\text{Discontinua infinita en } x = 0"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Identifique el tipo de discontinuidad en x = 5",
+    "formula": "f(x) = \\begin{cases} x^2 - 25 & \\text{si } x < 5 \\\\ 1 & \\text{si } x \\geq 5 \\end{cases}",
+    "respuesta": "\\text{Discontinuidad de salto}",
+    "alternativa_1": "\\text{Función continua}",
+    "alternativa_2": "\\text{Discontinuidad removible}",
+    "alternativa_3": "\\text{Discontinuidad infinita}"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine si la función es continua en x = 2",
+    "formula": "f(x) = \\frac{x^3 - 8}{x^2 - 4}",
+    "respuesta": "\\text{Discontinua removible en } x = 2",
+    "alternativa_1": "\\text{Continua en } x = 2",
+    "alternativa_2": "\\text{Discontinua infinita en } x = 2",
+    "alternativa_3": "\\text{Discontinua de salto en } x = 2"
+  },
+  {
+    "topico": "Continuidad de una función",
+    "enunciado": "Determine el valor de k para que la función sea continua en todo ℝ",
+    "formula": "f(x) = \\begin{cases} \\sin(x) & \\text{si } x \\leq \\pi \\\\ k & \\text{si } x > \\pi \\end{cases}",
+    "respuesta": "k = 0",
+    "alternativa_1": "k = 1",
+    "alternativa_2": "k = \\pi",
+    "alternativa_3": "k = -1"
+  }
+]
