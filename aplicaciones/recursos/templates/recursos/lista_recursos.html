@@ -1,0 +1,405 @@
+{% extends 'aplicaciones/base.html' %}
+
+{% block title %}{{ titulo_pagina }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    body {
+        background: linear-gradient(to bottom, #f9fbff 0%, #e8f0ff 100%);
+    }
+    
+    .biblioteca-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #b3d4fc;
+        animation: fadeInDown 0.6s ease-out;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .biblioteca-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #007bff;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+    }
+    
+    .btn-upload-material {
+        background: #007bff;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        box-shadow: 0 2px 6px rgba(0, 123, 255, 0.2);
+        transition: all 0.3s ease-in-out;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: 'Poppins', sans-serif;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .btn-upload-material:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    }
+    
+    .filters-container {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+    
+    .filters-container label {
+        display: block;
+        color: #334155;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .filters-container input,
+    .filters-container select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        font-size: 0.95rem;
+        background: #fafafa;
+    }
+    
+    .filters-container input:focus,
+    .filters-container select:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        background: white;
+    }
+    
+    .resource-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        border-left: 4px solid;
+        transition: all 0.3s ease-in-out;
+        animation: fadeIn 0.5s ease-out;
+        animation-fill-mode: both;
+    }
+    
+    .resource-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    
+    .resource-card[data-asignatura*="Cálculo"],
+    .resource-card[data-asignatura*="Calculo"] {
+        border-left-color: #007bff;
+    }
+    
+    .resource-card[data-asignatura*="Álgebra"],
+    .resource-card[data-asignatura*="Algebra"] {
+        border-left-color: #6f42c1;
+    }
+    
+    .resource-card[data-asignatura*="Física"],
+    .resource-card[data-asignatura*="Fisica"] {
+        border-left-color: #28a745;
+    }
+    
+    .resource-card[data-asignatura*="otro"] {
+        border-left-color: #6c757d;
+    }
+    
+    .resource-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #007bff;
+        transition: all 0.3s ease-in-out;
+        text-decoration: none;
+        font-family: 'Poppins', sans-serif;
+        display: inline-block;
+    }
+    
+    .resource-title:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+    
+    .resource-description {
+        color: #475569;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-top: 0.5rem;
+    }
+    
+    .badge {
+        display: inline-block;
+        padding: 0.375rem 0.875rem;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+    }
+    
+    .badge:hover {
+        transform: translateY(-1px);
+    }
+    
+    .badge-calculo {
+        background: #e7f3ff;
+        color: #0056b3;
+        border: 1px solid #b3d9ff;
+    }
+    
+    .badge-algebra {
+        background: #f3e5ff;
+        color: #5a2d8f;
+        border: 1px solid #d6b3ff;
+    }
+    
+    .badge-fisica {
+        background: #e8f5e9;
+        color: #1e7e34;
+        border: 1px solid #a5d6a7;
+    }
+    
+    .badge-tipo {
+        background: #fff3cd;
+        color: #856404;
+        border: 1px solid #ffeaa7;
+    }
+    
+    .badge-default {
+        background: #e9ecef;
+        color: #495057;
+        border: 1px solid #ced4da;
+    }
+    
+    .action-btn {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .btn-search {
+        background: #007bff;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .btn-search:hover {
+        background: #0056b3;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
+    }
+    
+    .btn-clear {
+        background: #e9ecef;
+        color: #495057;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+        border: 1px solid #dee2e6;
+    }
+    
+    .btn-clear:hover {
+        background: #dee2e6;
+        transform: translateY(-1px);
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #64748b;
+        font-size: 1.125rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        animation: fadeIn 0.6s ease-out;
+    }
+    
+    .empty-state p:first-child {
+        font-weight: 600;
+        color: #475569;
+        margin-bottom: 0.5rem;
+    }
+    
+    .message-success {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        color: #155724;
+        padding: 1rem 1.25rem;
+        border-radius: 6px;
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+        box-shadow: 0 2px 6px rgba(40, 167, 69, 0.15);
+    }
+    
+    .user-info {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-bottom: 0.75rem;
+    }
+    
+    .resource-card:nth-child(1) { animation-delay: 0.05s; }
+    .resource-card:nth-child(2) { animation-delay: 0.1s; }
+    .resource-card:nth-child(3) { animation-delay: 0.15s; }
+    .resource-card:nth-child(4) { animation-delay: 0.2s; }
+    .resource-card:nth-child(5) { animation-delay: 0.25s; }
+    
+    @media (max-width: 768px) {
+        .biblioteca-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .biblioteca-title {
+            font-size: 1.75rem;
+        }
+        
+        .btn-upload-material {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .filters-container {
+            padding: 1rem;
+        }
+        
+        .resource-card {
+            padding: 1rem;
+        }
+    }
+</style>
+{% endblock extra_css %}
+
+{% block contenido %}
+<div class="max-w-6xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message-success" role="alert">
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="biblioteca-header">
+        <h1 class="biblioteca-title">Biblioteca de Recursos</h1>
+        {% if user.is_authenticated %}
+            <a href="{% url 'recursos:crear_recurso' %}" class="btn-upload-material">
+                <span style="font-size: 1.25rem;">+</span>
+                Subir Material
+            </a>
+        {% endif %}
+    </div>
+
+    <form method="get" action="{% url 'recursos:lista_recursos' %}" class="filters-container">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+            <div class="md:col-span-5">
+                <label for="search-input">Buscar</label>
+                <input type="text" id="search-input" name="q" placeholder="Buscar por título o descripción..." value="{{ query|default_if_none:'' }}">
+            </div>
+            
+            <div class="md:col-span-3">
+                <label for="asignatura-select">Asignatura</label>
+                <select name="asignatura" id="asignatura-select">
+                    <option value="">Todas las asignaturas</option>
+                    {% for asig in asignaturas %}
+                        <option value="{{ asig.pk }}" {% if asig.pk|stringformat:"i" == filtro_asignatura_actual %}selected{% endif %}>{{ asig.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="md:col-span-2">
+                <label for="tipo-select">Tipo</label>
+                <select name="tipo" id="tipo-select">
+                    <option value="">Todos los tipos</option>
+                    {% for tipo in tipos_material %}
+                        <option value="{{ tipo.pk }}" {% if tipo.pk|stringformat:"i" == filtro_tipo_actual %}selected{% endif %}>{{ tipo.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="md:col-span-2 flex gap-2">
+                <button type="submit" class="btn-search flex-1">Buscar</button>
+                {% if query or filtro_asignatura_actual or filtro_tipo_actual %}
+                    <a href="{% url 'recursos:lista_recursos' %}" class="btn-clear" title="Limpiar Filtros">✕</a>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+    
+    <div class="space-y-4">
+        {% for material in materiales %}
+        <div class="resource-card" data-asignatura="{{ material.asignatura.nombre }}">
+            <div class="flex justify-between items-start gap-4 flex-wrap">
+                <div class="flex-1 min-w-0">
+                    <a href="{{ material.archivo.url }}" target="_blank" class="resource-title">{{ material.titulo }}</a>
+                    <p class="resource-description">{{ material.descripcion|truncatechars:150 }}</p>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="badge {% if 'Cálculo' in material.asignatura.nombre or 'Calculo' in material.asignatura.nombre %}badge-calculo{% elif 'Álgebra' in material.asignatura.nombre or 'Algebra' in material.asignatura.nombre %}badge-algebra{% elif 'Física' in material.asignatura.nombre or 'Fisica' in material.asignatura.nombre %}badge-fisica{% else %}badge-default{% endif %}">{{ material.asignatura.nombre }}</span>
+                        <span class="badge badge-tipo">{{ material.tipo_material.nombre }}</span>
+                    </div>
+                </div>
+                
+                <div class="flex-shrink-0 text-right">
+                    <p class="user-info">Subido por: {{ material.subido_por.username }}</p>
+                    {% if material.subido_por == user %}
+                        <div class="flex gap-2 flex-wrap justify-end">
+                            <a href="{% url 'recursos:editar_recurso' pk=material.pk %}" class="action-btn text-yellow-700 bg-yellow-50 border border-yellow-300 hover:bg-yellow-100">Editar</a>
+                            <a href="{% url 'recursos:eliminar_recurso' pk=material.pk %}" class="action-btn text-red-700 bg-red-50 border border-red-300 hover:bg-red-100">Eliminar</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <p>No se encontraron materiales educativos que coincidan con la búsqueda.</p>
+            <p class="text-sm mt-2">Intenta ajustar los filtros o realizar una nueva búsqueda.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock contenido %}

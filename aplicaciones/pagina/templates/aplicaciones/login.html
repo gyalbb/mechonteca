@@ -1,0 +1,258 @@
+{% extends 'aplicaciones/base.html' %}
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Contenedor principal con degradado */
+    .login-container {
+        background: linear-gradient(180deg, #f8fafc 0%, #e0f2fe 100%);
+        min-height: calc(100vh - 200px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1rem;
+        animation: fadeIn 0.6s ease-in-out;
+    }
+    
+    /* Animación fade-in suave */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Card del formulario */
+    .login-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        padding: 3rem 2.5rem;
+        max-width: 480px;
+        width: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(37, 99, 235, 0.1);
+        position: relative;
+    }
+    
+    .login-card:hover {
+        box-shadow: 0 12px 32px rgba(37, 99, 235, 0.15);
+    }
+    
+    /* Botón volver fuera del título */
+    .btn-back {
+        position: absolute;
+        top: 1.5rem;
+        left: 1.5rem;
+        color: #9ca3af;
+        transition: all 0.2s ease;
+        z-index: 10;
+    }
+    
+    .btn-back:hover {
+        color: #4b5563;
+        transform: translateX(-3px);
+    }
+    
+    /* Tipografía Poppins */
+    .login-title {
+        font-family: 'Poppins', 'Inter', sans-serif;
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+        margin-top: 1rem;
+        text-align: center;
+    }
+    
+    .login-subtitle {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.875rem;
+        color: #6b7280;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    /* Estilos de campos del formulario */
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+    
+    .form-label {
+        font-family: 'Poppins', sans-serif;
+        display: block;
+        color: #374151;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+        font-family: 'Inter', sans-serif;
+        background-color: #f9fafb;
+    }
+    
+    .form-input:focus {
+        outline: none;
+        border-color: #2563eb;
+        background-color: white;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    .form-input:hover {
+        border-color: #d1d5db;
+    }
+    
+    /* Mensaje de error */
+    .error-alert {
+        background-color: #fef2f2;
+        border: 2px solid #fecaca;
+        color: #991b1b;
+        padding: 1rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.875rem;
+    }
+    
+    .error-alert strong {
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+    
+    /* Botón Ingresar en rojo con hover */
+    .btn-ingresar {
+        width: 100%;
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white;
+        font-weight: 600;
+        padding: 0.875rem 1.5rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+        border: none;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .btn-ingresar:hover {
+        background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35);
+    }
+    
+    .btn-ingresar:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
+    }
+    
+    /* Link de registro centrado */
+    .signup-link-container {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e5e7eb;
+    }
+    
+    .signup-link-container p {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.875rem;
+        color: #6b7280;
+    }
+    
+    .signup-link {
+        color: #2563eb;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+    
+    .signup-link:hover {
+        color: #1d4ed8;
+        text-decoration: underline;
+    }
+    
+    /* Icono en el título */
+    .title-icon {
+        display: inline-block;
+        color: #dc2626;
+        margin-right: 0.5rem;
+    }
+</style>
+{% endblock extra_css %}
+
+{% block contenido %}
+<div class="login-container">
+    <div class="login-card">
+        <!-- Botón volver separado -->
+        <a href="{% url 'index' %}" class="btn-back" title="Volver al inicio">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </a>
+        
+        <!-- Título con icono -->
+        <h2 class="login-title">
+            <i class="fa-solid fa-right-to-bracket title-icon"></i>Iniciar Sesión
+        </h2>
+        <p class="login-subtitle">Accede a tu cuenta Mechonteca UTFSM</p>
+
+        {% if form.errors %}
+            <div class="error-alert" role="alert">
+                <strong>¡Error!</strong>
+                <span>Tu nombre de usuario y contraseña no coinciden. Por favor, inténtalo de nuevo.</span>
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{% url 'dashboard:dashboard_view' %}">
+            
+            <div class="form-group">
+                <label class="form-label" for="id_username">Nombre de usuario</label>
+                <input type="text" 
+                       name="username" 
+                       id="id_username" 
+                       class="form-input"
+                       placeholder="Ingresa tu usuario"
+                       required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="id_password">Contraseña</label>
+                <input type="password" 
+                       name="password" 
+                       id="id_password" 
+                       class="form-input"
+                       placeholder="Ingresa tu contraseña"
+                       required>
+            </div>
+            
+            <button type="submit" class="btn-ingresar">
+                <i class="fa-solid fa-arrow-right-to-bracket" style="margin-right: 0.5rem;"></i>
+                Ingresar
+            </button>
+        </form>
+
+        <div class="signup-link-container">
+            <p>
+                ¿No tienes una cuenta?
+                <a href="{% url 'signup' %}" class="signup-link">Regístrate aquí</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

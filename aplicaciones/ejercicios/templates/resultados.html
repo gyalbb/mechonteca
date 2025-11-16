@@ -1,0 +1,56 @@
+{% extends 'aplicaciones/base.html' %}
+
+{% block title %}Resultados de la Prueba{% endblock %}
+
+{% block contenido %}
+<div class="relative max-w-2xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
+    <!-- Botón Volver -->
+    <a href="{% url 'ejercicios:lista_pruebas' %}?username={{ prueba.usuario }}" class="absolute top-0 left-0 text-gray-400 hover:text-gray-600 transition-colors" title="Volver a Mis Pruebas">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+    </a>
+
+    <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-4">¡Prueba Finalizada!</h1>
+        <p class="text-lg text-gray-600 mb-6">Aquí tienes el resumen de tu rendimiento en la prueba #{{ prueba.id }}.</p>
+
+        {% with porcentaje_acierto=0 %}
+            {% if prueba.cantidad_preguntas > 0 %}
+                {% widthratio prueba.correctas prueba.cantidad_preguntas 100 as porcentaje_acierto %}
+            {% endif %}
+
+            <div class="my-8">
+                <p class="text-6xl font-extrabold {% if porcentaje_acierto >= 70 %}text-green-500{% elif porcentaje_acierto >= 40 %}text-yellow-500{% else %}text-red-500{% endif %}">
+                    {{ porcentaje_acierto }}%
+                </p>
+                <p class="text-gray-500 font-semibold">de acierto</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mb-8 border-t border-b py-6">
+                <div>
+                    <p class="text-3xl font-bold text-green-600">{{ prueba.correctas }}</p>
+                    <p class="text-sm text-gray-500">Correctas</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-bold text-red-600">{{ prueba.incorrectas }}</p>
+                    <p class="text-sm text-gray-500">Incorrectas</p>
+                </div>
+                <div>
+                    <p class="text-3xl font-bold text-blue-600">{{ prueba.cantidad_preguntas }}</p>
+                    <p class="text-sm text-gray-500">Total Preguntas</p>
+                </div>
+            </div>
+        {% endwith %}
+
+        <div class="space-y-4 md:space-y-0 md:flex md:justify-center md:space-x-4">
+            <a href="{% url 'ejercicios:obtener_prueba' %}?id={{ prueba.id }}" class="btn-usm-primary w-full md:w-auto">
+                Revisar mis Respuestas
+            </a>
+            <a href="{% url 'ejercicios:ejercicios_index' %}" class="btn-secundario w-full md:w-auto">
+                Volver al Centro de Ejercicios
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}
